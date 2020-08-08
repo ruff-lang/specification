@@ -23,7 +23,7 @@
                         @@@@@@@@@@@@@@@@@@                       
                                                                  
 ```
-The **Bunny** programming language (called `bunny`, not `bunny lang`) aims to be a simple and general purpose language with batteries included. It is heavily influenced by **Common Lisp**, **Scheme**, **Clojure**, **Ruby**, **Go**, and probably others. The motivation behind the specification is to create a concrete design and incrementally implement the language with different runtimes. The goal is to pick and choose the most developer-friendly features from a bunch of different languages and attempt to bundle them up into a cohesive and enjoyable language.
+The **Bunny** programming language (called `bunny`, not `bunny lang`) aims to be a simple and general purpose batteries-included language. It is heavily influenced by **Common Lisp**, **Scheme**, **Clojure**, **Ruby**, **Go**, and probably others. The motivation behind the specification is to create a concrete design and incrementally implement the language with different runtimes. The goal is to pick and choose the most developer-friendly features from a bunch of different languages and attempt to bundle them up into a cohesive and enjoyable language.
 
 ## File Format
 
