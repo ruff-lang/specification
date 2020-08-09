@@ -23,6 +23,7 @@
                         @@@@@@@@@@@@@@@@@@                       
                                                                  
 ```
+
 ## Table of Contents
 - [Overview](#overview)
 - [Language Features](#language-features)
@@ -35,6 +36,7 @@
   * [Distributing](#distributing)
 - [Documentation Generator](#documentation-generator)
 - [Tooling](#tooling)
+  * [`bunny-up`](#-bunny-up-)
   * [The `bunny` command](#the--bunny--command)
   * [`bunny format`](#-bunny-format-)
   * [Dependency Manager](#dependency-manager)
@@ -100,6 +102,32 @@ TODO...
 TODO...
 
 ## Tooling
+
+### `bunny-up`
+
+The `bunny-up` tool is the simplest way to get started with `bunny`, installing the tool is simple and allows installing switching between `bunny` versions. Install the tool by running the command below on a unix-like system.
+
+```
+$ curl --proto '=https' --tlsv1.2 -sSf https://bunny-lang.org/bunny-up.sh | sh
+```
+
+Install the language:
+
+```
+$ bunny-up install  # default to latest 'stable' release
+```
+
+Install a specific version:
+
+```
+$ bunny-up install 0.0.1
+```
+
+Use a specific version:
+
+```
+$ bunny-up use 0.0.1
+```
 
 ### The `bunny` command
 
