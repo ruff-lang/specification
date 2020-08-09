@@ -47,7 +47,7 @@ TODO...
 
 ## Conventions
 
-Bunny encourages a set of conventions to make it both more approachable. The set of conventions for `bunny` are a super-set of a style guide. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with. Strong opinions for conventions is borrowed from Ruby and its wonderful community.
+Bunny encourages a set of conventions to make it both more approachable and simplifies tooling by being able to make certain assumptions. The set of conventions for `bunny` are a super-set of a style guide. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with. Strong opinions for conventions is borrowed from Ruby and its wonderful community.
 
 ### Directory Structure
 
