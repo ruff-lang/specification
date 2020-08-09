@@ -84,7 +84,7 @@ Bunny encourages a set of conventions to make it both more approachable and simp
 
 ### File Format
 
-Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia.org/wiki/UTF-8) file with the `.bn` extensions.
+Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia.org/wiki/UTF-8) file with the `.bn` extensions. File names should always be lower-case and `snake_case`, e.g. `bunny_formatter.bn`.
 
 ### Directory Structure
 
