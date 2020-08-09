@@ -1,4 +1,4 @@
-# Bunny Language Specification :rabbit:
+# Bunny Language Specification
 
 ```
                                                                  
