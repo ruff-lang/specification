@@ -28,3 +28,19 @@ The **Bunny** programming language (called `bunny`, not `bunny lang`) aims to be
 ## File Format
 
 Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia.org/wiki/UTF-8) file with the `.b` or `.bn` extensions.
+
+## Syntax
+
+TODO...
+
+## Semantics
+
+TODO...
+
+## Libraries
+
+TODO...
+
+## Tooling
+
+TODO...
