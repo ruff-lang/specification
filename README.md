@@ -85,14 +85,6 @@ TODO...
 
 Bunny encourages a set of conventions to make it both more approachable and simplifies tooling by being able to make certain assumptions. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with. Strong opinions for conventions is borrowed from Ruby and its wonderful community.
 
-### Avoid Ambiguity
-
-All `bunny` code should avoid ambiguity whenever possible. This applies to file, variable, function, and other names.
-
-### Document Carrot Interfaces
-
-Each `carrot` should document its public interface using the documentation comment syntax above function definitions.
-
 ### Directory Structure
 
 Here's an example directory structure for a hypothetical project.
@@ -133,3 +125,19 @@ The directory structure for a carrot (library) is pretty similar, except there's
 └── test
     └── magic_calculator_test.bn
 ```
+
+### Code Format
+
+Code structure and formatting should not be an argument. Bunny takes Go's approach by providing a standardized code formatter with the core tooling.
+
+```
+$ bunny format  # or aliased 'bunny fmt'
+```
+
+### Avoid Ambiguity
+
+All `bunny` code should avoid ambiguity whenever possible. This applies to file, variable, function, and other names.
+
+### Document Carrot Interfaces
+
+Each `carrot` should document its public interface using the documentation comment syntax above function definitions.
