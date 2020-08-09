@@ -45,6 +45,8 @@ TODO...
 
 Bunny calls libraries carrots, as in "add the postgresql carrot to your dependencies". Creating and distributing carrots should be an integrated part of the `bunny` tooling, much like Ruby with it's incredible [bundler](https://bundler.io/) tool. The tooling should also handle documentation generation, similar to [rustdoc](https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html).
 
+### Creating a Library
+
 Creating a new `carrot` should be as simple as:
 
 ```
@@ -52,6 +54,16 @@ $ bunny new carrot <directory_name>
 ```
 
 This should setup the skeleton for a new carrot. Modify the `carrot_spec.bn` accordingly, and code away.
+
+### Adding a Dependency
+
+All project or library dependencies should be added to the `carrots.bn` file either manually or by invoking the `bunny` command.
+
+```
+$ bunny add carrot <carrot_name>
+```
+
+This will automatically add the dependency to the `carrots.bn` file.
 
 ### Versioning
 
