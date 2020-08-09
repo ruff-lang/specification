@@ -33,15 +33,7 @@ TODO...
 
 Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia.org/wiki/UTF-8) file with the `.b` or `.bn` extensions.
 
-## Syntax
-
-TODO...
-
-## Semantics
-
-TODO...
-
-## Conventions
+## Syntax & Semantics
 
 TODO...
 
@@ -50,5 +42,9 @@ TODO...
 TODO...
 
 ## Tooling
+
+TODO...
+
+## Conventions
 
 TODO...
