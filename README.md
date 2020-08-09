@@ -131,7 +131,7 @@ $ bunny-up use 0.0.1
 
 ### The `bunny` command
 
-Everything you should need to get up and running with the bunny programming language, from learning to running in production, is included in the `bunny` command.
+Everything you should need to get up and running with the bunny programming language, from learning to running in production, is included in a single binary: `bunny`. The `bunny` binary includes the core language runtime and standard library, a build tool, a dependency manager, a formatter, a documentation generator, and potentially more.
 
 ### `bunny format`
 
