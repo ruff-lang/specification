@@ -95,7 +95,7 @@ All `carrot`s should follow [Semantic Versioning](https://semver.org/).
 
 ### Distributing
 
-TODO...
+`carrot`s are encouraged to be published and distributed through the [carrot registry](#carrot-registry), which is the default built into the dependency manager. It is also possible to distribute `carrot`s through [GitHub Releases](https://docs.github.com/en/github/administering-a-repository/about-releases).
 
 ## Documentation Generator
 
