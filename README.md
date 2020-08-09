@@ -47,4 +47,31 @@ TODO...
 
 ## Conventions
 
-TODO...
+Bunny encourages a set of conventions to make it both more approachable. The set of conventions for `bunny` are a super-set of a style guide. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with. Strong opinions for conventions is borrowed from Ruby and its wonderful community.
+
+#### Directory Structure
+
+Here's an example directory structure for a hypothetical project.
+
+```
+.
+├── bin
+│   ├── cli.bn
+│   └── server.bn
+├── carrots.bn
+├── carrots.lock
+├── lib
+│   └── utils.bn
+├── src
+│   └── application.bn
+└── test
+    └── application_test.bn
+```
+
+- `bin` should contain entrypoints to code, for example a `cli` launcher or `server` launcher.
+- `carrots.bn` should describe the dependencies for the project.
+- `carrots.lock` is the generated lock file with the dependency graph based on `carrots.bn`.
+- `lib` should contain any utilities or shared code for the project.
+- `src` contains all the application specific code for the project.
+- `test` contains tests for the project.
+
