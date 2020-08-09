@@ -37,7 +37,29 @@ Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia
 
 TODO...
 
-## Libraries
+## Libraries (Carrots)
+
+### Overview
+
+Bunny calls libraries carrots, as in "add the postgresql carrot to your dependencies". Creating and distributing carrots should be an integrated part of the `bunny` tooling, much like Ruby with it's incredible [bundler](https://bundler.io/) tool. The tooling should also handle documentation generation, similar to [rustdoc](https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html).
+
+Creating a new `carrot` should be as simple as:
+
+```
+$ bunny new carrot <directory_name>
+```
+
+This should setup the skeleton for a new carrot. Modify the `carrot_specification.bn` accordingly, and code away.
+
+### Versioning
+
+All `carrot`s should follow [Semantic Versioning](https://semver.org/).
+
+### Distributing
+
+TODO...
+
+## Documentation Generator
 
 TODO...
 
@@ -75,13 +97,13 @@ Here's an example directory structure for a hypothetical project.
 - `src` contains all the application specific code for the project.
 - `test` contains tests for the project.
 
-The directory structure for a carrot (library) is pretty similar, except there's no `src` directory and there's a `carrot_definition.bn` file at the root.
+The directory structure for a carrot (library) is pretty similar, except there's no `src` directory and there's a `carrot_specification.bn` file at the root.
 
 ```
 .
 ├── bin
 │   └── cli.bn
-├── carrot_definition.bn
+├── carrot_specification.bn
 ├── carrots.bn
 ├── carrots.lock
 ├── lib
