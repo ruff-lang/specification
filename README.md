@@ -140,4 +140,4 @@ All `bunny` code should avoid ambiguity whenever possible. This applies to file,
 
 ### Document Carrot Interfaces
 
-Each `carrot` should document its public interface using the documentation comment syntax above function definitions.
+Each `carrot` should document its public interface using the documentation comment syntax above function definitions. When distributing `carrot`s, the documentation generator can publish the documentation in the centralized `carrot` repository and provide a uniform way to browse documentation.
