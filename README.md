@@ -32,10 +32,6 @@ It is heavily influenced by **Common Lisp**, **Scheme**, **Clojure**, **Ruby**, 
 
 TODO...
 
-## File Format
-
-Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia.org/wiki/UTF-8) file with the `.bn` extensions.
-
 ## Syntax & Semantics
 
 TODO...
@@ -85,6 +81,10 @@ TODO...
 ## Conventions & Style Guide
 
 Bunny encourages a set of conventions to make it both more approachable and simplifies tooling by being able to make certain assumptions. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with. Strong opinions for conventions is borrowed from Ruby and its wonderful community.
+
+### File Format
+
+Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia.org/wiki/UTF-8) file with the `.bn` extensions.
 
 ### Directory Structure
 
