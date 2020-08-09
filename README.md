@@ -27,7 +27,7 @@
 ## Table of Contents
 - [Overview](#overview)
 - [Language Features](#language-features)
-- [Syntax & Semantics](#syntax---semantics)
+- [Syntax & Semantics](#syntax--semantics)
 - [Libraries (Carrots)](#libraries-carrots)
   * [Overview](#overview-1)
   * [Creating a Library](#creating-a-library)
@@ -42,7 +42,7 @@
   * [Dependency Manager](#dependency-manager)
   * [Centralized Carrot Registry](#centralized-carrot-registry)
   * [Centralized Documentation](#centralized-documentation)
-- [Conventions & Style Guide](#conventions---style-guide)
+- [Conventions & Style Guide](#conventions--style-guide)
   * [File Format](#file-format)
   * [Directory Structure](#directory-structure)
   * [Code Format](#code-format)
