@@ -40,8 +40,8 @@
   * [The `bunny` command](#the-bunny-command)
   * [`bunny format`](#bunny-format)
   * [Dependency Manager](#dependency-manager)
-  * [Centralized Carrot Registry](#centralized-carrot-registry)
-  * [Centralized Documentation](#centralized-documentation)
+  * [Carrot Registry](#carrot-registry)
+  * [Documentation](#documentation)
 - [Conventions & Style Guide](#conventions--style-guide)
   * [File Format](#file-format)
   * [Directory Structure](#directory-structure)
@@ -139,15 +139,15 @@ Recursively format all `.bn` files in the current directory tree. Returns the `0
 
 ### Dependency Manager
 
-`bunny` ships with a built in dependency manager to manage `carrot`s.
+`bunny` ships with a built in dependency manager to manage `carrot`s. By default, the central carrot registry is used to resolve dependencies. Multiple registries can be used in the `carrots.bn` file to support private `carrot`s. [GitHub Releases](https://docs.github.com/en/github/administering-a-repository/about-releases) can also be used to import `carrot`s that are not in the central registry.
 
-### Centralized Carrot Registry
+### Carrot Registry
 
 All public `carrot`s are distributed to the centralized `carrot` registry at https://carrots.bunny-lang.org. Hosting a private `carrot` registry should be easily possible with standard webservers.
 
 A project can declare multiple registry sources in its `carrots.bn` file, and `carrot`s will be searched through the listed registries in order to resolve the package.
 
-### Centralized Documentation
+### Documentation
 
 Tightly integrated with the Centralized Carrot Registry, https://docs.bunny-lang.org offers a single source of documentation for the core language, the standard library, and user published `carrot`s.
 
