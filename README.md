@@ -28,7 +28,7 @@
 - [Overview](#overview)
 - [Language Features](#language-features)
 - [Syntax & Semantics](#syntax---semantics)
-- [Libraries (Carrots)](#libraries--carrots-)
+- [Libraries (Carrots)](#libraries--carrots)
   * [Overview](#overview-1)
   * [Creating a Library](#creating-a-library)
   * [Adding a Dependency](#adding-a-dependency)
