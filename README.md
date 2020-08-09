@@ -49,7 +49,7 @@ TODO...
 
 Bunny encourages a set of conventions to make it both more approachable. The set of conventions for `bunny` are a super-set of a style guide. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with. Strong opinions for conventions is borrowed from Ruby and its wonderful community.
 
-#### Directory Structure
+### Directory Structure
 
 Here's an example directory structure for a hypothetical project.
 
@@ -68,10 +68,24 @@ Here's an example directory structure for a hypothetical project.
     └── application_test.bn
 ```
 
-- `bin` should contain entrypoints to code, for example a `cli` launcher or `server` launcher.
+- `bin` (optional) should contain entrypoints to code, for example a `cli` launcher or `server` launcher.
 - `carrots.bn` should describe the dependencies for the project.
 - `carrots.lock` is the generated lock file with the dependency graph based on `carrots.bn`.
-- `lib` should contain any utilities or shared code for the project.
+- `lib` (optional) should contain any utilities or shared code for the project.
 - `src` contains all the application specific code for the project.
 - `test` contains tests for the project.
 
+The directory structure for a carrot (library) is pretty similar, except there's no `src` directory and there's a `carrot_definition.bn` file at the root.
+
+```
+.
+├── bin
+│   └── cli.bn
+├── carrot_definition.bn
+├── carrots.bn
+├── carrots.lock
+├── lib
+│   └── magic_calculator.bn
+└── test
+    └── magic_calculator_test.bn
+```
