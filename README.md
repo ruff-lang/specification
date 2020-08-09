@@ -23,6 +23,31 @@
                         @@@@@@@@@@@@@@@@@@                       
                                                                  
 ```
+## Table of Contents
+- [Overview](#overview)
+- [Language Features](#language-features)
+- [Syntax & Semantics](#syntax---semantics)
+- [Libraries (Carrots)](#libraries--carrots-)
+  * [Overview](#overview-1)
+  * [Creating a Library](#creating-a-library)
+  * [Adding a Dependency](#adding-a-dependency)
+  * [Versioning](#versioning)
+  * [Distributing](#distributing)
+- [Documentation Generator](#documentation-generator)
+- [Tooling](#tooling)
+  * [The `bunny` command](#the--bunny--command)
+  * [`bunny format`](#-bunny-format-)
+  * [Dependency Manager](#dependency-manager)
+  * [Centralized Carrot Registry](#centralized-carrot-registry)
+  * [Centralized Documentation](#centralized-documentation)
+- [Conventions & Style Guide](#conventions---style-guide)
+  * [File Format](#file-format)
+  * [Directory Structure](#directory-structure)
+  * [Code Format](#code-format)
+  * [Avoid Ambiguity](#avoid-ambiguity)
+  * [Document Carrot Interfaces](#document-carrot-interfaces)
+
+## Overview
 
 **Bunny** (_bunny_, not _bunny lang_) aims to be a simple, practical, and fun general purpose dynamic programming language. 
 
