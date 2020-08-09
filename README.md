@@ -76,7 +76,27 @@ TODO...
 
 ## Tooling
 
-TODO...
+### The `bunny` command
+
+Everything you should need to get up and running with the bunny programming language, from learning to running in production, is included in the `bunny` command.
+
+### `bunny format`
+
+Recursively format all `.bn` files in the current directory tree. Returns the `0` exit code if all files already comply with `bunny` formatting, and returns the `1` exit code when it writes changes.
+
+### Dependency Manager
+
+`bunny` ships with a built in dependency manager to manage `carrot`s.
+
+### Centralized Carrot Registry
+
+All public `carrot`s are distributed to the centralized `carrot` registry at https://carrots.bunny-lang.org. Hosting a private `carrot` registry should be easily possible with standard webservers.
+
+A project can declare multiple registry sources in its `carrots.bn` file, and `carrot`s will be searched through the listed registries in order to resolve the package.
+
+### Centralized Documentation
+
+Tightly integrated with the Centralized Carrot Registry, https://docs.bunny-lang.org offers a single source of documentation for the core language, the standard library, and user published `carrot`s.
 
 ## Conventions & Style Guide
 
