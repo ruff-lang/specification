@@ -31,7 +31,7 @@ TODO...
 
 ## File Format
 
-Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia.org/wiki/UTF-8) file with the `.b` or `.bn` extensions.
+Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia.org/wiki/UTF-8) file with the `.bn` extensions.
 
 ## Syntax & Semantics
 
@@ -70,6 +70,10 @@ TODO...
 ## Conventions
 
 Bunny encourages a set of conventions to make it both more approachable and simplifies tooling by being able to make certain assumptions. The set of conventions for `bunny` are a super-set of a style guide. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with. Strong opinions for conventions is borrowed from Ruby and its wonderful community.
+
+### Avoid Ambiguity
+
+All `bunny` code should avoid ambiguity whenever possible. This applies to file, variable, function, and other names.
 
 ### Directory Structure
 
