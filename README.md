@@ -1,5 +1,7 @@
 # Bunny Language Specification
 
+**NOTE: This is a work in-progress.**
+
 ```
                                                                  
                      @@@@@             @@@@@@                    
