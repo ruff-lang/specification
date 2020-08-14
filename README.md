@@ -59,6 +59,10 @@ It is heavily influenced by **Common Lisp**, **Scheme**, **Clojure**, **Ruby**, 
 
 ## Language Features
 
+- **Minimal and Modern Syntax**, inspired by the elegance of Scheme and readability of Ruby.
+- **Functional**, as in functions are values.
+- **Batteries Included**, to be a practical and productive tool.
+
 TODO...
 
 ## Syntax & Semantics
