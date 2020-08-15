@@ -61,6 +61,7 @@ It is heavily influenced by **Common Lisp**, **Scheme**, **Clojure**, **Ruby**, 
 
 - **Minimal and Modern Syntax**, inspired by the elegance of Scheme and readability of Ruby.
 - **Functional**, as in functions are values.
+- **Tail-Call Optimized**, recursion without the overhead.
 - **Garbage-Collected**, using a mark-and-sweep algorithm.
 - **Macros**.
 - **Continuations**, a simple interface to `call/cc`.
