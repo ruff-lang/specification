@@ -61,7 +61,8 @@ It is heavily influenced by **Common Lisp**, **Scheme**, **Clojure**, **Ruby**, 
 
 - **Minimal and Modern Syntax**, inspired by the elegance of Scheme and readability of Ruby.
 - **Functional**, as in functions are values.
-- **Concurrency**, in the spirit of Go with coroutines and channels.
+- **Continuations**, a simple interface to `call/cc`.
+- **Concurrent**, in the spirit of Go with coroutines and channels (built on top on continuations).
 - **Batteries Included**, to be a practical and productive tool.
 
 TODO...
