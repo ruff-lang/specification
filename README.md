@@ -98,7 +98,7 @@ This will automatically add the dependency to the `carrots.bn` file.
 
 ### Versioning
 
-All `carrot`s should follow [Semantic Versioning](https://semver.org/).
+All `carrot`s should follow [Semantic Versioning](https://semver.org/). For example, the first stable release of Bunny will be `v1.0.0`
 
 ### Distributing
 
