@@ -30,6 +30,9 @@
 - [Overview](#overview)
 - [Language Features](#language-features)
 - [Syntax & Semantics](#syntax--semantics)
+  * [Atoms](#atoms)
+  * [Cons Cells](#cons-cells)
+  * [Lists](#lists)
 - [Libraries (Carrots)](#libraries-carrots)
   * [Overview](#overview-1)
   * [Creating a Library](#creating-a-library)
@@ -71,7 +74,35 @@ It is heavily influenced by **Common Lisp**, **Scheme**, **Clojure**, **Ruby**, 
 
 ## Syntax & Semantics
 
-TODO...
+### Atoms
+
+An `atom` is any singlular piece of data that is not a pair. Bunny has a couple of different kinds of atoms. 
+
+|**Atom** |**Semantic Meaning**|
+|---------|--------------------|
+|symbol   |A symbol is any non-reserved word, for example `foo` is a symbol|
+|boolean  |`true` is a symbol representing the truthy boolean. `false` is an aliased symbol representing falsity (the underlying implementation for falsity is `null`)|
+|integer  |Any number, for example `0` or `1`|
+|character|Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet.|
+
+### Cons Cells
+
+The fundamental data type in Bunny is a pair of two things, also known as a cons cell. A first element (called `head`) and a second element (called `tail`) are all that make up a cons cell.
+
+### Lists
+
+A list is an arbitrary length sequence of cons cells. The `tail` of each cons cell holds the next cons cell, or contains `null` as a special symbol designating sequence termination. Any data structure formed with cons cells is a list.
+
+| **Examples** | **Semantic Meaning** |
+|--------------|--------------------|
+|`()`          | an empty list |
+|`null`        | an empty list, equivalent to `()` |
+|`(a)`         | a list containing the symbol `a` |
+|`(a ())`      | equivalent to `(a)`, the symbol `a` and the empty list `()` |
+|`(a null)`    | equivalent to `(a)`, the symbol `a` and empty list `null` |
+|`(a (b c))`   | two element list of the symbol `a` and the list `(b c)` |
+
+`head` and `tail` are also functions that can be applied to lists, for example, `(head '(1 2 3))` evaluates to `1` and `(tail '(1 2 3))` evaluates to `(2 3)` (note: the `'` is explained further later). It's possible to get the `nth` item using the function `nth`, e.g. `(nth 2 '(1 2 3)` evaluates to `3`.
 
 ## Libraries (Carrots)
 
