@@ -125,7 +125,7 @@ Bunny calls libraries carrots, as in "add the postgresql carrot to your dependen
 Creating a new `carrot` should be as simple as:
 
 ```
-$ bunny new carrot <carrot_name>
+$ bunny new carrot <carrot_name:required>
 ```
 
 This should setup a directory `<carrot_name>` with the skeleton for a new carrot. Modify the `carrot_spec.bn` accordingly, and code away.
@@ -135,7 +135,7 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 All project or library dependencies should be added to the `carrots.bn` file either manually or by invoking the `bunny` command.
 
 ```
-$ bunny add carrot <carrot_name>
+$ bunny add carrot <carrot_name:required> <carrot_version:optional>
 ```
 
 This will automatically add the dependency to the `carrots.bn` file.
