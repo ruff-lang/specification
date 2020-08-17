@@ -112,7 +112,7 @@ The underlying representation for a list is a cons pair as described below:
 
 `head` and `tail` are also functions that can be applied to lists, for example, `(head '(1 2 3))` evaluates to `1` and `(tail '(1 2 3))` evaluates to `(2 3)` (note: the `'` is explained further later). It's possible to get the `nth` item using the function `nth`, e.g. `(nth 2 '(1 2 3)` evaluates to `3`.
 
-Given an empty list `()`, `(head ())` is `()` and `(tail ())` is `()`. In other words, the `head` and `tail` of an empty list is `null`.
+Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In other words, the `head` and `tail` of an empty list is `null`.
 
 ## Libraries (Carrots)
 
