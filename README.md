@@ -115,6 +115,36 @@ The underlying representation for a list is a cons pair as described below:
 
 Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In other words, the `head` and `tail` of an empty list is `null`.
 
+### Comments
+
+Comments in Bunny are specified with semi-colons (`;`) with three distinct types of comments.
+
+* **Inline comments:** a single semi-colon `;` with 2 whitespace characters are used for in-line comments. Used for very small comments, should be used sparingly.
+  ```lisp
+  (+ 1 2)  ; Add one and two.
+  ```
+* **Comment blocks:** two semi-colons `;;` spanning multiple lines. Should be used generously, especially around complex code blocks and should be aligned with the line directly after.
+  ```lisp
+  ;; The code below adds one and two
+  ;; using the + operator.
+  (+ 1 2)
+  ```
+* **Documentation comment blocks:** three semi-colons `;;;` spanning multiple lines. These are used to automatically generate documentation and should be used to thoroughly document functions. A documentation comment block at the top of a file will generate a top-level documentation summary for the module in the file. Markdown syntax is supported.
+  ```lisp
+  ;;; # Addition Module
+  ;;; This module provides a single function to add two integers together.
+  
+  ;;; ## my-addition
+  ;;; The my-addition function takes only two arguments and adds them together.
+  ;;;
+  ;;; Example:
+  ;;; ```
+  ;;; (my-addition 1 2) => 3
+  ;;; ```
+  (defun (my-addition x y)
+    (+ x y))
+  ```
+
 ## Libraries (Carrots)
 
 ### Overview
