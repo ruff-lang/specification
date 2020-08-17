@@ -80,18 +80,26 @@ An `atom` is any singlular piece of data that is not a pair. Bunny has a couple 
 
 |**Atom** |**Semantic Meaning**|
 |---------|--------------------|
-|symbol   |A symbol is any non-reserved word, for example `foo` is a symbol|
-|boolean  |`true` is a symbol representing the truthy boolean. `false` is an aliased symbol representing falsity (the underlying implementation for falsity is `null`)|
-|integer  |Any number, for example `0` or `1`|
-|character|Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet.|
+|symbol   | A symbol is any non-reserved word, for example `foo` is a symbol and so is `+` |
+|boolean  | `true` is a symbol representing the truthy boolean. `false` is an aliased symbol representing falsity (the underlying implementation for falsity is `null`) |
+|integer  | Any number, for example `0` or `1` |
+|character| Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet. |
 
 ### Cons Cells
 
 The fundamental data type in Bunny is a pair of two things, also known as a cons cell. A first element (called `head`) and a second element (called `tail`) are all that make up a cons cell.
 
+The syntax for a cons cell is `(cons <head> <tail>)`, for example the pair for two symbols, `a` and `b` is written as `(cons a b)`. Many lisps use the dotted-pair notation to represent cons cells, for example `(<head> . <tail>)` is equivalent to `(cons <head> <tail>)`. Bunny differs here, instead reserving the `.` symbol for other operations (note: this is not finalized but may be a reversed decision).
+
 ### Lists
 
 A list is an arbitrary length sequence of cons cells. The `tail` of each cons cell holds the next cons cell, or contains `null` as a special symbol designating sequence termination. Any data structure formed with cons cells is a list.
+
+The underlying representation for a list is a cons pair as described below:
+
+```
+(1 2 3) => (cons 1 (cons 2 (cons 3 null)))
+```
 
 | **Examples** | **Semantic Meaning** |
 |--------------|--------------------|
@@ -101,6 +109,8 @@ A list is an arbitrary length sequence of cons cells. The `tail` of each cons ce
 |`(a ())`      | equivalent to `(a)`, the symbol `a` and the empty list `()` |
 |`(a null)`    | equivalent to `(a)`, the symbol `a` and empty list `null` |
 |`(a (b c))`   | two element list of the symbol `a` and the list `(b c)` |
+
+The underlying representation of
 
 `head` and `tail` are also functions that can be applied to lists, for example, `(head '(1 2 3))` evaluates to `1` and `(tail '(1 2 3))` evaluates to `(2 3)` (note: the `'` is explained further later). It's possible to get the `nth` item using the function `nth`, e.g. `(nth 2 '(1 2 3)` evaluates to `3`.
 
