@@ -33,6 +33,7 @@
   * [Atoms](#atoms)
   * [Cons Cells](#cons-cells)
   * [Lists](#lists)
+  * [Comments](#comments)
 - [Libraries (Carrots)](#libraries-carrots)
   * [Overview](#overview-1)
   * [Creating a Library](#creating-a-library)
