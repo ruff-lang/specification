@@ -124,7 +124,7 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   ```lisp
   (+ 1 2)  ; Add one and two.
   ```
-* **Comment blocks:** two semi-colons `;;` spanning multiple lines. Should be used generously, especially around complex code blocks and should be aligned with the line directly after.
+* **Comment blocks:** two semi-colons `;;` which can span multiple lines. Should be used generously, especially around complex code blocks and should be aligned with the line directly after.
   ```lisp
   ;; The code below adds one and two
   ;; using the + operator.
