@@ -82,7 +82,8 @@ An `atom` is any singlular piece of data that is not a pair. Bunny has a couple 
 |---------|--------------------|
 |symbol   | A symbol is any non-reserved word, for example `foo` is a symbol and so is `+` |
 |boolean  | `true` is a symbol representing the truthy boolean. `false` is an aliased symbol representing falsity (the underlying implementation for falsity is `null`) |
-|integer  | Any number, for example `0` or `1` |
+|integer  | Any number, for example `1` or `19` |
+|float    | A floating point integer, for example `3.14159265` |
 |character| Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet. |
 
 ### Cons Cells
