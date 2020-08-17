@@ -110,9 +110,9 @@ The underlying representation for a list is a cons pair as described below:
 |`(a null)`    | equivalent to `(a)`, the symbol `a` and empty list `null` |
 |`(a (b c))`   | two element list of the symbol `a` and the list `(b c)` |
 
-The underlying representation of
-
 `head` and `tail` are also functions that can be applied to lists, for example, `(head '(1 2 3))` evaluates to `1` and `(tail '(1 2 3))` evaluates to `(2 3)` (note: the `'` is explained further later). It's possible to get the `nth` item using the function `nth`, e.g. `(nth 2 '(1 2 3)` evaluates to `3`.
+
+Given an empty list `()`, `(head ())` is `()` and `(tail ())` is `()`. In other words, the `head` and `tail` of an empty list is `null`.
 
 ## Libraries (Carrots)
 
