@@ -68,7 +68,7 @@ It is heavily influenced by **Common Lisp**, **Scheme**, **Clojure**, **Ruby**, 
 - **Garbage-Collected**, using a mark-and-sweep algorithm.
 - **Macros**.
 - **Continuations**, a simple interface to `call/cc`.
-- **Concurrent**, in the spirit of Go with coroutines and channels (built on top on continuations).
+- **Concurrent**, in the spirit of Go with coroutines and channels (built on top of continuations).
 - **Batteries Included**, to be a practical and productive tool (see also: https://github.com/bunny-lang/stdlib).
 - **Integrated Tooling**, `bunny` ships as a single binary with all the tools needed to be productive.
 
