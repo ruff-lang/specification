@@ -33,6 +33,8 @@
   * [Atoms](#atoms)
   * [Cons Cells](#cons-cells)
   * [Lists](#lists)
+  * [Variables](#variables)
+  * [Functions](#functions)  
   * [Comments](#comments)
 - [Libraries (Carrots)](#libraries-carrots)
   * [Overview](#overview-1)
@@ -81,7 +83,7 @@ An `atom` is any singlular piece of data that is not a pair. Bunny has a couple 
 
 |**Atom** |**Semantic Meaning**|
 |---------|--------------------|
-|symbol   | A symbol is any non-reserved word, for example `foo` is a symbol and so is `+` |
+|symbol   | A symbol is a word or an operator, for example `foo` is a symbol and so is `+` |
 |boolean  | `true` is a symbol representing the truthy boolean. `false` is an aliased symbol representing falsity (the underlying implementation for falsity is `null`) |
 |integer  | Any number, for example `1` or `19` |
 |float    | A floating point integer, for example `3.14159265` |
@@ -116,13 +118,61 @@ The underlying representation for a list is a cons pair as described below:
 
 Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In other words, the `head` and `tail` of an empty list is `null`.
 
+### Variables
+
+Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `define` and `redefine` for mutation.
+
+```
+(define foo "foo")  ; defines a global variable foo and binds the value "foo" to it
+(redefine foo 42)  ; mutates the variable foo and binds it to 42
+```
+
+Variables can be lexically scoped using `let`, and then used within the scoped expression. The form used is `(let (<bindings>) (<expression>))`.
+
+```
+;; bind foo to the value 42 and return its square
+(let ((foo 42))
+  (* foo foo))
+```
+
+Multiple bindings can be used in a `let` form.
+
+```
+(let ((foo 1)
+      (bar 2))
+  (+ foo bar))
+```
+
+Note that the behavior of `let` evaluates each binding immediately and in-order, allowing dependent bindings.
+
+```
+(let ((foo 2)
+      (bar (+ foo 1))  ; use the previous binding of foo and add 1 to it
+  (* foo bar))
+=> (* 2 3) => 6
+```
+
+**Note:** the above about dependent bindings may change to a more classic lisp-like syntax of `let*` unless I'm able to hide that overhead under the compiler so non-dependent bindings are still done without a nested (and thus more efficient) manner.
+
+### Functions
+
+Bunny has two forms of functions, anonymous functions (`lambda`) and named functions (`defun`). Name functions are just syntactic sugar for a `lambda` inside a `define` form.
+
+Anonymous functions take the form `(lambda (<arguments>) (<expression>))`. Below is an example that squares a number.
+
+```
+(lambda (x) (* x x))
+```
+
 ### Comments
 
 Comments in Bunny are specified with semi-colons (`;`) with three distinct types of comments.
 
-* **Inline comments:** a single semi-colon `;` with 2 whitespace characters are used for in-line comments. Used for very small comments, should be used sparingly.
+* **Inline comments:** a single semi-colon `;` with two preceding whitespace characters are used for in-line comments. Used for very small comments, should be used sparingly.
   ```lisp
   (+ 1 2)  ; Add one and two.
+         ^^
+      whitespace
   ```
 * **Comment blocks:** two semi-colons `;;` which can span multiple lines. Should be used generously, especially around complex code blocks and should be aligned with the line directly after.
   ```lisp
