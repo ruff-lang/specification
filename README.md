@@ -164,7 +164,7 @@ Anonymous functions take the form `(lambda (<arguments>) (<expression>))`. Below
 (lambda (x) (* x x))
 ```
 
-Using `define` and `lambda` we can express a named function.
+Since functions are values, and we use `define` to give names to values, we can use `define` and `lambda` to express a named function.
 
 ```lisp
 (define <function_name>
