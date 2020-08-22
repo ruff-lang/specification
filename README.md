@@ -221,7 +221,7 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   ;;; ```
   ;;; (my-addition 1 2) => 3
   ;;; ```
-  (defun (my-addition x y)
+  (defun my-addition (x y)
     (+ x y))
   ```
 
