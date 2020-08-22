@@ -235,7 +235,7 @@ Bunny calls libraries carrots, as in "add the postgresql carrot to your dependen
 
 Creating a new `carrot` should be as simple as:
 
-```
+```shell
 $ bunny new carrot <carrot_name:required>
 ```
 
@@ -245,7 +245,7 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 
 All project or library dependencies should be added to the `carrots.bn` file either manually or by invoking the `bunny` command.
 
-```
+```shell
 $ bunny add carrot <carrot_name:required> <carrot_version:optional>
 ```
 
@@ -269,25 +269,25 @@ TODO...
 
 The `bunny-up` tool is the simplest way to get started with `bunny`, installing the tool is simple and allows installing switching between `bunny` versions. This is based almost entirely off the great [`rustup`](https://rustup.rs/) tool. Install the tool by running the command below on a unix-like system.
 
-```
+```shell
 $ curl --proto '=https' --tlsv1.2 -sSf https://bunny-lang.org/bunny-up.sh | sh
 ```
 
 Install the language:
 
-```
+```shell
 $ bunny-up install  # default to latest 'stable' release
 ```
 
 Install a specific version:
 
-```
+```shell
 $ bunny-up install 0.0.1
 ```
 
 Use a specific version:
 
-```
+```shell
 $ bunny-up use 0.0.1
 ```
 
@@ -366,7 +366,7 @@ The directory structure for a carrot (library) is pretty similar, except there's
 
 Code structure and formatting should not be an argument. Bunny takes Go's approach by providing a standardized code formatter with the core tooling.
 
-```
+```shell
 $ bunny format  # or aliased 'bunny fmt'
 ```
 
