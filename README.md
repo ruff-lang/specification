@@ -84,7 +84,7 @@ An `atom` is any singlular piece of data that is not a pair. Bunny has a couple 
 |**Atom** |**Semantic Meaning**|
 |---------|--------------------|
 |symbol   | A symbol is a word or an operator, for example `foo` is a symbol and so is `+` |
-|boolean  | `true` is a symbol representing the truthy boolean. `false` is an aliased symbol representing falsity (the underlying implementation for falsity is `null`) |
+|boolean  | `true` is a symbol representing the truthy boolean. `false` is an aliased symbol representing falsity (the underlying implementation for falsity is `nil`) |
 |integer  | Any number, for example `1` or `19` |
 |float    | A floating point integer, for example `3.14159265` |
 |character| Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet. |
@@ -102,21 +102,21 @@ A list is an arbitrary length sequence of cons cells. The `tail` of each cons ce
 The underlying representation for a list is a cons pair as described below:
 
 ```
-(1 2 3) => (cons 1 (cons 2 (cons 3 null)))
+(1 2 3) => (cons 1 (cons 2 (cons 3 nil)))
 ```
 
 | **Examples** | **Semantic Meaning** |
 |--------------|--------------------|
 |`()`          | an empty list |
-|`null`        | an empty list, equivalent to `()` |
+|`nil`        | an empty list, equivalent to `()` |
 |`(a)`         | a list containing the symbol `a` |
 |`(a ())`      | equivalent to `(a)`, the symbol `a` and the empty list `()` |
-|`(a null)`    | equivalent to `(a)`, the symbol `a` and empty list `null` |
+|`(a nil)`    | equivalent to `(a)`, the symbol `a` and empty list `nil` |
 |`(a (b c))`   | two element list of the symbol `a` and the list `(b c)` |
 
 `head` and `tail` are also functions that can be applied to lists, for example, `(head '(1 2 3))` evaluates to `1` and `(tail '(1 2 3))` evaluates to `(2 3)` (note: the `'` is explained further later). It's possible to get the `nth` item using the function `nth`, e.g. `(nth 2 '(1 2 3)` evaluates to `3`.
 
-Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In other words, the `head` and `tail` of an empty list is `null`.
+Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In other words, the `head` and `tail` of an empty list is `nil`.
 
 ### Variables
 
