@@ -152,7 +152,7 @@ Note that the behavior of `let` evaluates each binding immediately and in-order,
 => (* 2 3) => 6
 ```
 
-**Note:** the above about dependent bindings may change to a more classic lisp-like syntax of `let*` unless I'm able to hide that overhead under the compiler so non-dependent bindings are still done without a nested (and thus more efficient) manner.
+**Note:** the above about dependent bindings may change to a more classic lisp-like syntax of `let*` unless I'm able to hide that overhead under the compiler so non-dependent bindings are still done without nesting.
 
 ### Functions
 
