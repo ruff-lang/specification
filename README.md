@@ -164,6 +164,35 @@ Anonymous functions take the form `(lambda (<arguments>) (<expression>))`. Below
 (lambda (x) (* x x))
 ```
 
+Using `define` and `lambda` we can express a named function.
+
+```
+(define <function_name>
+  (lambda (<arguments>)
+    <body>))
+```
+
+For example, we can define the function `incr` that increments a given integer.
+
+```
+(define incr
+  (lambda (x)
+    (+ x 1)))
+```
+
+And then invoke it:
+
+```
+(incr 1) => 2
+```
+
+Bunny should implement a special form `defun` as a more convenient way to define functions. The `defun` form is `(defun <function_name> (<arguments>) <expression>)`. The same `incr` function defined using `defun` below.
+
+```
+(defun incr (x)
+  (+ x 1))
+```
+
 ### Comments
 
 Comments in Bunny are specified with semi-colons (`;`) with three distinct types of comments.
