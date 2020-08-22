@@ -120,11 +120,11 @@ Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In othe
 
 ### Variables
 
-Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `define` and `redefine` for mutation.
+Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `define` and `set` for mutation.
 
 ```
 (define foo "foo")  ; defines a global variable foo and binds the value "foo" to it
-(redefine foo 42)  ; mutates the variable foo and binds it to 42
+(set foo 42)  ; mutates the variable foo and binds it to 42
 ```
 
 Variables can be lexically scoped using `let`, and then used within the scoped expression. The form used is `(let (<bindings>) (<expression>))`.
