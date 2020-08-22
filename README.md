@@ -122,14 +122,14 @@ Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In othe
 
 Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `define` and `set` for mutation.
 
-```
+```lisp
 (define foo "foo")  ; defines a global variable foo and binds the value "foo" to it
 (set foo 42)  ; mutates the variable foo and binds it to 42
 ```
 
 Variables can be lexically scoped using `let`, and then used within the scoped expression. The form used is `(let (<bindings>) (<expression>))`.
 
-```
+```lisp
 ;; bind foo to the value 42 and return its square
 (let ((foo 42))
   (* foo foo))
@@ -137,7 +137,7 @@ Variables can be lexically scoped using `let`, and then used within the scoped e
 
 Multiple bindings can be used in a `let` form.
 
-```
+```lisp
 (let ((foo 1)
       (bar 2))
   (+ foo bar))
@@ -145,7 +145,7 @@ Multiple bindings can be used in a `let` form.
 
 Note that the behavior of `let` evaluates each binding immediately and in-order, allowing dependent bindings.
 
-```
+```lisp
 (let ((foo 2)
       (bar (+ foo 1))  ; use the previous binding of foo and add 1 to it
   (* foo bar))
@@ -160,13 +160,13 @@ Bunny has two forms of functions, anonymous functions (`lambda`) and named funct
 
 Anonymous functions take the form `(lambda (<arguments>) (<expression>))`. Below is an example that squares a number.
 
-```
+```lisp
 (lambda (x) (* x x))
 ```
 
 Using `define` and `lambda` we can express a named function.
 
-```
+```lisp
 (define <function_name>
   (lambda (<arguments>)
     (<expression>)))
@@ -174,7 +174,7 @@ Using `define` and `lambda` we can express a named function.
 
 For example, we can define the function `incr` that increments a given integer.
 
-```
+```lisp
 (define incr
   (lambda (x)
     (+ x 1)))
@@ -182,13 +182,13 @@ For example, we can define the function `incr` that increments a given integer.
 
 And then invoke it:
 
-```
+```lisp
 (incr 1) => 2
 ```
 
 Bunny should implement a special form `defun` as a more convenient way to define functions. The `defun` form is `(defun <function_name> (<arguments>) (<expression>))`. The same `incr` function defined using `defun` below.
 
-```
+```lisp
 (defun incr (x)
   (+ x 1))
 ```
