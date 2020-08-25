@@ -39,11 +39,11 @@
 
 **Bunny** (_bunny_, not _bunny lang_) aims to be a simple, practical, and fun general purpose dynamic programming language. 
 
-It is heavily influenced by **Scheme**, **Clojure**, **Ruby**, **Go**, and probably others. The motivation behind the specification is to create a concrete design and incrementally implement the language with different runtimes. The goal is to pick and choose the most developer-friendly features from a bunch of different languages and attempt to bundle them up into a cohesive and enjoyable language.
+It is inspired by a collection of languages including classic Lisp dialects like **Common Lisp** and **Scheme**, modern Lisp-inspired languages like **Clojure**, dynamic and general purpose languages like **Ruby** and **Python**, and elegant concurrent languages like **Go**. The motivation behind the specification is to produce a concrete language design with wish-list features from it's inspirations. The goal is to picking the most developer-friendly features from a bunch of different languages and attempt to bundle them up into a cohesive and enjoyable language.
 
 ## Language Features
 
-- **Minimal and Modern Syntax**, inspired by the elegance of Scheme and readability of Ruby.
+- **Minimal and Modern Syntax**, aiming to be elegant, expressive, and readable.
 - **Functional**, as in functions are values.
 - **Tail-Call Optimized**, recursion without the overhead.
 - **Garbage-Collected**, using a mark-and-sweep algorithm.
