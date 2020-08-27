@@ -77,7 +77,7 @@ The syntax for a cons cell is `(cons <head> <tail>)`, for example the pair for t
 
 ### Lists
 
-A list is an arbitrary length sequence of cons cells. The `tail` of each cons cell holds the next cons cell, or contains `null` as a special symbol designating sequence termination. Any data structure formed with cons cells is a list.
+A list is an arbitrary length sequence of cons cells. The `tail` of each cons cell holds the next cons cell, or contains `nil` as a special symbol designating sequence termination. Any data structure formed with cons cells is a list.
 
 The underlying representation for a list is a cons pair as described below:
 
