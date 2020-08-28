@@ -132,7 +132,7 @@ Note that the behavior of `let` evaluates each binding immediately and in-order,
 => (* 2 3) => 6
 ```
 
-**Note:** the above about dependent bindings may change to a more classic lisp-like syntax of `let*` unless I'm able to hide that overhead under the compiler so non-dependent bindings are still done without nesting.
+For comparisons, a `let` in Bunny works more like Clojure than Scheme. Or in other words, `let` works similarly to `let*` in Scheme.
 
 ### Functions
 
