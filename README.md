@@ -198,9 +198,16 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 ```lisp
 (if (< 1 0)
-    ("condition met")
-    ("condition failed"))
+    "condition met"
+    "condition failed")
 => "condition failed"
+```
+
+`when` is a macro that expands to `(if (<condition>) (<true_expression>) (nil))`. It is preferred when there's no `else` clause needed.
+
+```lisp
+(when (< 1 2)
+      ("condition met"))
 ```
 
 `cond` blocks are a slightly more generic way to construct multiple conditions, they take the form `(cond (<conditional_0>) (<expression_0>) ... (<conditional_n>) (<expression_n>))`.
@@ -234,6 +241,29 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 (or (< 5 1) (< 3 2))
 => false
+```
+
+`not` negates the boolean expression immediately following it.
+
+```lisp
+(not (< 1 2))
+=> false
+```
+
+`unless` is a macro preferred over `(if (not ..) .. ..)` and evaluates to an equivalent `if` block with the conditional expression negated.
+
+```
+(unless (even? 2)
+        "number is not even"
+        "number is even!")
+=> "number is even!"
+
+;; unless can be used without a second clause, this makes it an implicit nil
+(unless (odd? 2) "number is not odd")
+=> "number is not odd"
+
+(unless (odd? 3) "number is not odd")
+=> nil
 ```
 
 ### Comments
