@@ -12,7 +12,8 @@
   * [Cons Cells](#cons-cells)
   * [Lists](#lists)
   * [Variables](#variables)
-  * [Functions](#functions)  
+  * [Functions](#functions) 
+  * [Conditionals](#conditionals) 
   * [Comments](#comments)
 - [Libraries (Carrots)](#libraries-carrots)
   * [Overview](#overview-1)
@@ -187,6 +188,52 @@ Bunny should implement a special form `defun` as a more convenient way to define
 ```lisp
 (defun incr (x)
   (+ x 1))
+```
+
+### Conditionals
+
+Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are the forms conditionals can take with some examples.
+
+`if` blocks take the form `(if (<condition>) (<true_expression>) (<false_expression>))`.
+
+```lisp
+(if (< 1 0)
+    ("condition met")
+    ("condition failed"))
+=> "condition failed"
+```
+
+`cond` blocks are a slightly more generic way to construct multiple conditions, they take the form `(cond (<conditional_0>) (<expression_0>) ... (<conditional_n>) (<expression_n>))`.
+
+```lisp
+;; Assume x is bound or supplied by a function argument, this condition will return a string
+;; based on the value of x.
+(cond ((< x 10) "less than 10")
+      ((< x 100) "less than 100")
+      (else "no conditions met"))
+      
+;; If no result expression is given, the condition block will return the result of the conditional expression.
+(cond ((< 1 10)))
+=> true
+```
+
+`and` is simply the logical and. `or` is the logical or.
+
+```lisp
+(and (< 1 10) (< 2 10))
+=> true
+
+(and (< 10 1) (< 2 10))
+=> false
+
+(or (< 1 10) (< 2 10))
+=> true
+
+(or (< 5 1) (< 2 3))
+=> true
+
+(or (< 5 1) (< 3 2))
+=> false
 ```
 
 ### Comments
