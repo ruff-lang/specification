@@ -252,7 +252,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `unless` is a macro preferred over `(if (not ..) .. ..)` and evaluates to an equivalent `if` block with the conditional expression negated.
 
-```
+```lisp
 (unless (even? 2)
         "number is not even"
         "number is even!")
