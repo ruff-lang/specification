@@ -98,6 +98,22 @@ The underlying representation for a list is a cons pair as described below:
 
 Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In other words, the `head` and `tail` of an empty list is `nil`.
 
+List are always evaluated, but it's often useful to work with and manipulate them without evaluation. This is done using the concept of quoting. The following examples show some basic examples.
+
+```lisp
+;; The following is evaluated
+(+ 1 2)
+=> 3
+
+;; This is not evaluated
+(quote (+ 1 2))
+=> (+ 1 2)
+
+;; Syntactic sugar form, equivalent to the above
+'(+ 1 2)
+=> (+ 1 2)
+```
+
 ### Variables
 
 Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `define` and `set` for mutation.
