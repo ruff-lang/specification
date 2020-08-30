@@ -183,12 +183,15 @@ And then invoke it:
 (incr 1) => 2
 ```
 
-Bunny should implement a special form `defun` as a more convenient way to define functions. The `defun` form is `(defun <function_name> (<arguments>) (<expression>))`. The same `incr` function defined using `defun` below.
+Bunny should implement a special form `defun` as a more convenient way to define functions. The `defun` form is `(defun <function_name> <documentation_string:optional> (<arguments>) (<expression>))`. The same `incr` function defined using `defun` below.
 
 ```lisp
 (defun incr (x)
+  "Increment the given integer by one."
   (+ x 1))
 ```
+
+Functions should generally have documentation strings describing them, except in trivial cases or for internal helper methods.
 
 ### Conditionals
 
@@ -287,19 +290,12 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   ;; using the + operator.
   (+ 1 2)
   ```
-* **Documentation comment blocks:** three semi-colons `;;;` spanning multiple lines. These are used to automatically generate documentation and should be used to thoroughly document functions. A documentation comment block at the top of a file will generate a top-level documentation summary for the module in the file. Markdown syntax is supported.
-  ```lisp
-  ;;; # Addition Module
-  ;;; This module provides a single function to add two integers together.
+* **Top-level comment blocks:** three semi-colons `;;;` spanning multiple lines. These should be limited to the top of a file and should summarize the code in that file. There should be two new lines after the comment block and any other code in the file.
+  ;;; This module provides a single function my-addition to add two integers.
   
-  ;;; ## my-addition
-  ;;; The my-addition function takes only two arguments and adds them together.
-  ;;;
-  ;;; Example:
-  ;;; ```
-  ;;; (my-addition 1 2) => 3
-  ;;; ```
+
   (defun my-addition (x y)
+    "Takes two integer arguments and returns the sum of them."
     (+ x y))
   ```
 
