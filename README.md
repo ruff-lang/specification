@@ -207,7 +207,12 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 ```lisp
 (when (< 1 2)
-      ("condition met"))
+      "condition met")
+=> "condition met"
+
+(when (< 1 2)
+      "condition met")
+=> nil      
 ```
 
 `cond` blocks are a slightly more generic way to construct multiple conditions, they take the form `(cond (<conditional_0>) (<expression_0>) ... (<conditional_n>) (<expression_n>))`.
