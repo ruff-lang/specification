@@ -321,17 +321,17 @@ Lets assume a slightly more abstract carrot called `foo`, with a module called `
 ```lisp
 (import foo)
 
-(bar/baz "argument")
-(foo/bar/baz "argument")  ; this is also valid
+(bar::baz "argument")
+(foo::bar::baz "argument")  ; this is also valid
 ```
 
 We can also import only `bar`.
 
 ```lisp
-(import foo/bar)
+(import foo::bar)
 
 (baz "argument")
-(bar/baz "argument")  ; this is still valid
+(bar::baz "argument")  ; this is still valid
 ```
 
 We can also alias the imported module, or even just the function. This should be used with care, as it can inadvertently encourage poor style.
@@ -339,11 +339,11 @@ We can also alias the imported module, or even just the function. This should be
 ```lisp
 (import foo as f)
 
-(f/bar/baz "argument")
+(f::bar::baz "argument")
 ```
 
 ```lisp
-(import foo/bar/baz as b)
+(import foo::bar::baz as b)
 
 (b "argument")
 ```
