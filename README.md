@@ -183,7 +183,7 @@ And then invoke it:
 (incr 1) => 2
 ```
 
-Bunny should implement a special form `defun` as a more convenient way to define functions. The `defun` form is `(defun <function_name> <documentation_string:optional> (<arguments>) (<expression>))`. The same `incr` function defined using `defun` below.
+Bunny should implement a special form `defun` as a more convenient way to define functions. The `defun` form is `(defun <function_name> (<arguments>) <documentation_string:optional> (<expression>))`. The same `incr` function defined using `defun` below.
 
 ```lisp
 (defun incr (x)
