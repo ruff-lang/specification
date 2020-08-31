@@ -291,6 +291,7 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   (+ 1 2)
   ```
 * **Top-level comment blocks:** three semi-colons `;;;` spanning multiple lines. These should be limited to the top of a file and should summarize the code in that file. There should be two new lines after the comment block and any other code in the file.
+  ```lisp
   ;;; This module provides a single function my-addition to add two integers.
   
 
