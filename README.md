@@ -334,7 +334,7 @@ We can also import only `bar`.
 (bar::baz "argument")  ; this is still valid
 ```
 
-We can also alias the imported module, or even just the function. This should be used with care, as it can inadvertently encourage poor style.
+We can also alias the imported module, or even just the function. This should be used with care, as it can inadvertently encourage poor readability.
 
 ```lisp
 (import foo as f)
@@ -345,7 +345,7 @@ We can also alias the imported module, or even just the function. This should be
 ```lisp
 (import foo::bar::baz as b)
 
-(b "argument")
+(b "argument")  ; note that it's unclear what the intention of the function b is here
 ```
 
 ### Creating a Library
