@@ -322,7 +322,7 @@ Lets assume a slightly more abstract carrot called `foo`, with a module called `
 (import foo)
 
 (bar::baz "argument")
-(foo::bar::baz "argument")  ; this is also valid
+(foo::bar::baz "argument")  ; this is still valid, but discouraged
 ```
 
 We can also import only `bar`.
@@ -331,7 +331,7 @@ We can also import only `bar`.
 (import foo::bar)
 
 (baz "argument")
-(bar::baz "argument")  ; this is still valid
+(bar::baz "argument")  ; this is still valid, but discouraged
 ```
 
 We can also alias the imported module, or even just the function. This should be used with care, as it can inadvertently encourage poor readability.
