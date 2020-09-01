@@ -19,6 +19,7 @@
   * [Overview](#overview-1)
   * [Creating a Library](#creating-a-library)
   * [Adding a Dependency](#adding-a-dependency)
+  * [Using a Library](#using-a-library)  
   * [Versioning](#versioning)
   * [Distributing](#distributing)
 - [Documentation Generator](#documentation-generator)
@@ -306,48 +307,6 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
 
 Bunny calls libraries carrots, as in "add the postgresql carrot to your dependencies". Creating and distributing carrots should be an integrated part of the `bunny` tooling, much like Ruby with it's incredible [bundler](https://bundler.io/) tool. The tooling should also handle documentation generation, similar to [rustdoc](https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html).
 
-### Usage
-
-When adding a carrot to your codebase, you can either import the entire carrot tree or individual modules. You can also alias the import to a shorter or more convenient name (this can be useful to avoid collisions). Lets assume a carrot called `math` for the examples below.
-
-```lisp
-(import math)  ; contains a function called sqrt and 
-
-(sqrt 4)  ; evaluates to 2
-```
-
-Lets assume a slightly more abstract carrot called `foo`, with a module called `bar`, and a function called `baz`.
-
-```lisp
-(import foo)
-
-(bar/baz "argument")
-(foo/bar/baz "argument")  ; this is still valid, but discouraged
-```
-
-We can also import only `bar`.
-
-```lisp
-(import foo/bar)
-
-(baz "argument")
-(bar/baz "argument")  ; this is still valid, but discouraged
-```
-
-We can also alias the imported module, or even just the function. This should be used with care, as it can inadvertently encourage poor readability.
-
-```lisp
-(import foo as f)
-
-(f/bar/baz "argument")
-```
-
-```lisp
-(import foo/bar/baz as b)
-
-(b "argument")  ; note that it's unclear what the intention of the function b is here
-```
-
 ### Creating a Library
 
 Creating a new `carrot` should be as simple as:
@@ -415,6 +374,48 @@ $ bunny add carrot <carrot_name:required> <carrot_version:optional>
 ```
 
 This will automatically add the dependency to the `carrots.bn` file.
+
+### Using a Library
+
+When adding a carrot to your codebase, you can either import the entire carrot tree or individual sub-packages. You can also alias the import to a shorter or more convenient name (this can be useful to avoid collisions). Lets assume a carrot called `math` for the examples below.
+
+```lisp
+(import math)  ; contains a function called sqrt and 
+
+(sqrt 4)  ; evaluates to 2
+```
+
+Lets assume a slightly more abstract carrot called `foo`, with a module called `bar`, and a function called `baz`.
+
+```lisp
+(import foo)
+
+(bar/baz "argument")
+(foo/bar/baz "argument")  ; this is still valid, but discouraged
+```
+
+We can also import only `bar`.
+
+```lisp
+(import foo/bar)
+
+(baz "argument")
+(bar/baz "argument")  ; this is still valid, but discouraged
+```
+
+We can also alias the imported module, or even just the function. This should be used with care, as it can inadvertently encourage poor readability.
+
+```lisp
+(import foo as f)
+
+(f/bar/baz "argument")
+```
+
+```lisp
+(import foo/bar/baz as b)
+
+(b "argument")  ; note that it's unclear what the intention of the function b is here
+```
 
 ### Versioning
 
