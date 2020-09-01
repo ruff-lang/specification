@@ -202,8 +202,8 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 ```lisp
 (if (< 1 0)
-    "condition met"
-    "condition failed")
+  "condition met"
+  "condition failed")
 => "condition failed"
 ```
 
@@ -211,11 +211,11 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 ```lisp
 (when (< 1 2)
-      "condition met")
+  "condition met")
 => "condition met"
 
 (when (< 1 2)
-      "condition met")
+  "condition met")
 => nil      
 ```
 
@@ -263,8 +263,8 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 ```lisp
 (unless (even? 2)
-        "number is not even"
-        "number is even!")
+  "number is not even"
+  "number is even!")
 => "number is even!"
 
 ;; unless can be used without a second clause, this makes it an implicit nil
