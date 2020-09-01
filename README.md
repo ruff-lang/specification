@@ -361,8 +361,8 @@ Importing the carrot will make all this code available, but import can be more s
 
 ```lisp
 (import <carrot_name>)  ; import the entire package
-(import <carrot_name>/foo)  ; import only the foo sub-package
-(import <carrot_name>/bar)  ; import only the bar sub-package
+(import <carrot_name>:foo)  ; import only the foo sub-package
+(import <carrot_name>:bar)  ; import only the bar sub-package
 ```
 
 ### Adding a Dependency
@@ -390,17 +390,17 @@ Lets assume a slightly more abstract carrot called `foo`, with a module called `
 ```lisp
 (import foo)
 
-(bar/baz "argument")
-(foo/bar/baz "argument")  ; this is still valid, but discouraged
+(bar:baz "argument")
+(foo:bar:baz "argument")  ; this is still valid, but discouraged
 ```
 
 We can also import only `bar`.
 
 ```lisp
-(import foo/bar)
+(import foo:bar)
 
 (baz "argument")
-(bar/baz "argument")  ; this is still valid, but discouraged
+(bar:baz "argument")  ; this is still valid, but discouraged
 ```
 
 We can also alias the imported module, or even just the function. This should be used with care, as it can inadvertently encourage poor readability.
@@ -408,11 +408,11 @@ We can also alias the imported module, or even just the function. This should be
 ```lisp
 (import foo as f)
 
-(f/bar/baz "argument")
+(f:bar:baz "argument")
 ```
 
 ```lisp
-(import foo/bar/baz as b)
+(import foo:bar:baz as b)
 
 (b "argument")  ; note that it's unclear what the intention of the function b is here
 ```
