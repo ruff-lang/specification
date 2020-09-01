@@ -377,7 +377,7 @@ This will automatically add the dependency to the `carrots.bn` file.
 
 ### Using a Library
 
-When adding a carrot to your codebase, you can either import the entire carrot tree or individual sub-packages. You can also alias the import to a shorter or more convenient name (this can be useful to avoid collisions). Lets assume a carrot called `math` for the examples below.
+When adding a carrot to your codebase, you can either import the entire carrot or individual sub-packages. You can also alias the import to a shorter or more convenient name (this can be useful to avoid collisions). Lets assume a carrot called `math` for the examples below.
 
 ```lisp
 (import math)  ; contains a function called sqrt and 
