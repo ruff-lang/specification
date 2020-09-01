@@ -356,7 +356,55 @@ Creating a new `carrot` should be as simple as:
 $ bunny new carrot <carrot_name:required>
 ```
 
-This should setup a directory `<carrot_name>` with the skeleton for a new carrot. Modify the `carrot_spec.bn` accordingly, and code away.
+This should setup a directory `<carrot_name>` with the skeleton for a new carrot. Modify the `carrot_spec.bn` accordingly, and code away. Other projects can use this code now by adding `<carrot_name>` to its `carrots.bn` file and importing `<carrot_name>` in code. Below is what the directory structure will look like.
+
+```
+.
+├── bin
+│   └── cli.bn
+├── carrot_spec.bn
+├── carrots.bn
+├── carrots.lock
+├── lib
+│   └── <carrot_name>.bn
+└── test
+    └── <carrot_name>_test.bn
+```
+
+`<carrot_name>.bn` file:
+
+```lisp
+(defun foo (argument)
+  "Returns whatever argument is passed to the function."
+  argument)
+```
+
+Functions in `<carrot_name>.bn` can be used after importing, below is a simple example. 
+
+```lisp
+(import <carrot_name>)
+
+(foo "rabbits are cool and stuff")
+```
+
+All files in the `lib` directory will be available after importing the carrot to a project. Additional nesting can be done by creating new directories, but each new directory introduces additional nesting in the package, so lets say we add two directories called `foo` and `bar`.
+
+```
+lib
+├── bar
+│   └── bar.bn
+├── foo
+│   └── foo.bn
+└── <carrot_name>.bn
+```
+
+Importing the carrot will make all this code available, but import can be more selective too. Below are some import examples.
+
+```lisp
+(import <carrot_name>)  ; import the entire package
+(import <carrot_name>/foo)  ; import only the foo sub-package
+(import <carrot_name>/bar)  ; import only the bar sub-package
+```
 
 ### Adding a Dependency
 
