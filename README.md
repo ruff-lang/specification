@@ -14,7 +14,7 @@
   * [Variables](#variables)
   * [Functions](#functions) 
   * [Conditionals](#conditionals) 
-  * [Namespaces](#namespaces)
+  * [Package System](#package-system)
   * [Comments](#comments)
 - [Libraries (Carrots)](#libraries-carrots)
   * [Overview](#overview-1)
@@ -276,9 +276,28 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 => nil
 ```
 
-### Namespaces
+### Package System
 
 (TODO...)
+
+```lisp
+;; Defining a new package name my-math that imports math and exports two functions, my-addition and my-substraction
+(defpackage :my-math
+  (import (math))
+  (export (my-addition)
+          (my-substraction)))
+
+;; In another file, telling the compiler this code is part of the :my-math package
+(in-package :my-math
+  ;; the math import will be available in this file as well
+  (export (my-division)  ; these exports can go in the defpackage call in the main file as well
+          (my-multiplication)))
+           
+;; In a sub-package in a nested directory src/sub_package
+(defpackage :my-math.sub-package
+  (import (math))  ; sub-packages don't recusively get imports
+  (export (my-sub-function)))
+```
 
 ### Comments
 
