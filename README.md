@@ -315,11 +315,15 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   ;; using the + operator.
   (+ 1 2)
   ```
-* **Top-level comment blocks:** three semi-colons `;;;` spanning multiple lines. These should be limited to the top of a file and should summarize the code in that file. There should be two new lines after the comment block and any other code in the file.
+* **Top-level comment blocks:** same as comment blocks but limited to the top of a file stating the package and a brief summary of the code in that file. 
   ```lisp
-  ;;; This module provides a single function my-addition to add two integers.
+  ;; my-math package
+  ;; This package provides a single function my-addition to add two integers.
   
-
+  (defpackage :my-math
+    (import (math))
+    (export (my-addition)))
+  
   (defun my-addition (x y)
     "Takes two integer arguments and returns the sum of them."
     (+ x y))
@@ -336,15 +340,15 @@ Bunny calls libraries carrots, as in "add the postgresql carrot to your dependen
 Creating a new `carrot` should be as simple as:
 
 ```shell
-$ bunny new carrot <carrot_name:required>
+$ bunny new carrot <carrot_name:required> --bin=cli  # example to add an optional binary executable entrypoint to the carrot
 ```
 
 This should setup a directory `<carrot_name>` with the skeleton for a new carrot. Modify the `carrot_spec.bn` accordingly, and code away. Other projects can use this code now by adding `<carrot_name>` to its `carrots.bn` file and importing `<carrot_name>` in code. Below is what the directory structure will look like.
 
-```
+```shell
 .
-├── bin
-│   └── cli.bn
+├── bin          # Optional: The binary directory can hold any code specific to binary executable entry points that might be
+│   └── cli.bn   #           shipped with a carrot. This example shows a cli entrypoint.
 ├── carrot_spec.bn
 ├── carrots.bn
 ├── carrots.lock
@@ -357,6 +361,9 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 `<carrot_name>.bn` file:
 
 ```lisp
+(defpackage :<carrot_name>
+  (export (foo)))
+
 (defun foo (argument)
   "Returns whatever argument is passed to the function."
   argument)
@@ -365,28 +372,15 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 Functions in `<carrot_name>.bn` can be used after importing, below is a simple example. 
 
 ```lisp
-(import <carrot_name>)
+(defpackage :foo-user
+  (import (<carrot_name>)))
 
-(foo "rabbits are cool and stuff")
-```
+(<carrot_name>/foo "rabbits are cool and stuff")
 
-All files in the `lib` directory will be available after importing the carrot to a project. Additional nesting can be done by creating new directories, but each new directory introduces additional nesting in the package, so lets say we add two directories called `foo` and `bar`.
+;; Optionally, one could import as an alias
+(import (<carrot_name> :as c))
 
-```
-lib
-├── bar
-│   └── bar.bn
-├── foo
-│   └── foo.bn
-└── <carrot_name>.bn
-```
-
-Importing the carrot will make all this code available, but import can be more selective too. Below are some import examples.
-
-```lisp
-(import <carrot_name>)  ; import the entire package
-(import <carrot_name>:foo)  ; import only the foo sub-package
-(import <carrot_name>:bar)  ; import only the bar sub-package
+(c/foo "this is much shorter!)
 ```
 
 ### Adding a Dependency
@@ -401,45 +395,7 @@ This will automatically add the dependency to the `carrots.bn` file.
 
 ### Using a Library
 
-When adding a carrot to your codebase, you can either import the entire carrot or individual sub-packages. You can also alias the import to a shorter or more convenient name (this can be useful to avoid collisions). Lets assume a carrot called `math` for the examples below.
-
-```lisp
-(import math)  ; contains a function called sqrt and 
-
-(sqrt 4)  ; evaluates to 2
-```
-
-Lets assume a slightly more abstract carrot called `foo`, with a module called `bar`, and a function called `baz`.
-
-```lisp
-(import foo)
-
-(bar:baz "argument")
-(foo:bar:baz "argument")  ; this is still valid, but discouraged
-```
-
-We can also import only `bar`.
-
-```lisp
-(import foo:bar)
-
-(baz "argument")
-(bar:baz "argument")  ; this is still valid, but discouraged
-```
-
-We can also alias the imported module, or even just the function. This should be used with care, as it can inadvertently encourage poor readability.
-
-```lisp
-(import foo as f)
-
-(f:bar:baz "argument")
-```
-
-```lisp
-(import foo:bar:baz as b)
-
-(b "argument")  ; note that it's unclear what the intention of the function b is here
-```
+TODO: rework this section accounting for package system
 
 ### Versioning
 
