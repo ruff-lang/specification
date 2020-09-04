@@ -14,6 +14,7 @@
   * [Variables](#variables)
   * [Functions](#functions) 
   * [Conditionals](#conditionals) 
+  * [Namespaces](#namespaces)
   * [Comments](#comments)
 - [Libraries (Carrots)](#libraries-carrots)
   * [Overview](#overview-1)
@@ -274,6 +275,10 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 (unless (odd? 3) "number is not odd")
 => nil
 ```
+
+### Namespaces
+
+(TODO...)
 
 ### Comments
 
