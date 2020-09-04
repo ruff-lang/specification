@@ -347,8 +347,8 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 
 ```shell
 .
-├── bin          # Optional: The binary directory can hold any code specific to binary executable entry points that might be
-│   └── cli.bn   #           shipped with a carrot. This example shows a cli entrypoint.
+├── bin          # Optional: The binary directory can hold any code specific to binary executable entry points
+│   └── cli.bn   #           that might be shipped with a carrot. This example shows a cli entrypoint.
 ├── carrot_spec.bn
 ├── carrots.bn
 ├── carrots.lock
