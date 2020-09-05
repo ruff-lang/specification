@@ -275,7 +275,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 ### Namespaces
 
-(TODO...)
+The default global namespace is `bunny`. When launching a REPL, the user will be in the `bunny` namespace. Any definitions will automatically be in the `bunny` namespace, and it's possible to override existing definitions. To avoid overriding definitions and giving some structure to our code, we can organize code into namespaces.
 
 ```clojure
 ;; Create a new namespace my-math, reuse if already exists.
