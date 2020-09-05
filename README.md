@@ -352,23 +352,6 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
   argument)
 ```
 
-Functions in `<carrot_name>.bn` can be used after importing, below is a simple example. 
-
-```lisp
-(use (<carrot_name>))
-
-(<carrot_name>/foo "rabbits are cool and stuff")
-(<carrot_name>/magic-number)  ; This will evaluate to 42.
-
-;; Optionally, one could import as an alias.
-(use (<carrot_name> :as crrt))
-
-(crrt/foo "this is much shorter!)
-(crrt/magic-number)  ; Still evaluates to 42.
-(mut crrt/magic-number 1)  ; This will mutate the variable globally.
-(crrt/magic-number)  ; Now evaluates to 1.
-```
-
 ### Adding a Dependency
 
 All project or library dependencies should be added to the `carrots.bn` file either manually or by invoking the `bunny` command.
@@ -381,7 +364,22 @@ This will automatically add the dependency to the `carrots.bn` file.
 
 ### Using a Library
 
-TODO: rework this section accounting for package system
+Functions in `<carrot_name>.bn` can be used after importing, below is usage based on the above example for [Creating a Library](#creating-a-library). 
+
+```lisp
+(use (<carrot_name>))
+
+(<carrot_name>/foo "rabbits are cool and stuff")
+(<carrot_name>/magic-number)  ; This will evaluate to 42.
+
+;; Optionally, one could import as an alias.
+(use (<carrot_name> :as cn))
+
+(cn/foo "this is much shorter!)
+(cn/magic-number)  ; Still evaluates to 42.
+(mut cn/magic-number 1)  ; This will mutate the variable globally.
+(cn/magic-number)  ; Now evaluates to 1.
+```
 
 ### Versioning
 
