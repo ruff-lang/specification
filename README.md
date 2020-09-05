@@ -14,7 +14,7 @@
   * [Variables](#variables)
   * [Functions](#functions) 
   * [Conditionals](#conditionals) 
-  * [Package System](#package-system)
+  * [Namespaces](#namespaces)
   * [Comments](#comments)
 - [Libraries (Carrots)](#libraries-carrots)
   * [Overview](#overview-1)
@@ -96,10 +96,6 @@ The underlying representation for a list is a cons pair as described below:
 |`(a nil)`    | equivalent to `(a)`, the symbol `a` and empty list `nil` |
 |`(a (b c))`   | two element list of the symbol `a` and the list `(b c)` |
 
-`head` and `tail` are also functions that can be applied to lists, for example, `(head '(1 2 3))` evaluates to `1` and `(tail '(1 2 3))` evaluates to `(2 3)` (note: the `'` is explained further later). It's possible to get the `nth` item using the function `nth`, e.g. `(nth 2 '(1 2 3)` evaluates to `3`.
-
-Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In other words, the `head` and `tail` of an empty list is `nil`.
-
 List are always evaluated, but it's often useful to work with and manipulate them without evaluation. This is done using the concept of quoting. The following examples show some basic examples.
 
 ```lisp
@@ -116,13 +112,17 @@ List are always evaluated, but it's often useful to work with and manipulate the
 => (+ 1 2)
 ```
 
+`head` and `tail` are also functions that can be applied to lists, for example, `(head '(1 2 3))` evaluates to `1` and `(tail '(1 2 3))` evaluates to `(2 3)`. It's possible to get the `nth` item using the function `nth`, e.g. `(nth 2 '(1 2 3)` evaluates to `3`.
+
+Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In other words, the `head` and `tail` of an empty list are `nil`.
+
 ### Variables
 
-Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `define` and `set` for mutation.
+Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `def` and `mut` for mutation.
 
 ```lisp
-(define foo "foo")  ; defines a global variable foo and binds the value "foo" to it
-(set foo 42)  ; mutates the variable foo and binds it to 42
+(def foo "foo")  ; Defines a global variable foo and binds it to the value "foo".
+(mut foo "bar")  ; Mutates the variable foo and binds it to the value "bar".
 ```
 
 Variables can be lexically scoped using `let`, and then used within the scoped expression. The form used is `(let (<bindings>) (<expression>))`.
@@ -150,31 +150,29 @@ Note that the behavior of `let` evaluates each binding immediately and in-order,
 => (* 2 3) => 6
 ```
 
-For comparisons, a `let` in Bunny works more like Clojure than Scheme. Or in other words, `let` works similarly to `let*` in Scheme.
-
 ### Functions
 
-Bunny has two forms of functions, anonymous functions (`lambda`) and named functions (`defun`). Name functions are just syntactic sugar for a `lambda` inside a `define` form.
+Bunny has two forms of functions, anonymous functions (`lambda` or `λ`) and named functions (`defun`). Named functions are just syntactic sugar for a `λ` inside a `def` form.
 
-Anonymous functions take the form `(lambda (<arguments>) (<expression>))`. Below is an example that squares a number.
+Anonymous functions take the form `(λ (<arguments>) (<expression>))`. Below is an example that squares a number.
 
 ```lisp
-(lambda (x) (* x x))
+(λ (x) (* x x))
 ```
 
 Since functions are values, and we use `define` to give names to values, we can use `define` and `lambda` to express a named function.
 
 ```lisp
-(define <function_name>
-  (lambda (<arguments>)
+(def <function_name>
+  (λ (<arguments>)
     (<expression>)))
 ```
 
 For example, we can define the function `incr` that increments a given integer.
 
 ```lisp
-(define incr
-  (lambda (x)
+(def incr
+  (λ (x)
     (+ x 1)))
 ```
 
@@ -184,10 +182,10 @@ And then invoke it:
 (incr 1) => 2
 ```
 
-Bunny should implement a special form `defun` as a more convenient way to define functions. The `defun` form is `(defun <function_name> (<arguments>) <documentation_string:optional> (<expression>))`. The same `incr` function defined using `defun` below.
+Bunny should implement a special form `defn` as a more convenient way to define functions. The `defn` form is `(defn <function_name> (<arguments>) <documentation_string:optional> (<expression>))`. The same `incr` function defined using `defn` below.
 
 ```lisp
-(defun incr (x)
+(defn incr (x)
   "Increment the given integer by one."
   (+ x 1))
 ```
@@ -275,27 +273,15 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 => nil
 ```
 
-### Package System
+### Namespaces
 
 (TODO...)
 
 ```lisp
-;; Defining a new package name my-math that imports math and exports two functions, my-addition and my-substraction
-(defpackage :my-math
-  (import (math))
-  (export (my-addition)
-          (my-substraction)))
-
-;; In another file, telling the compiler this code is part of the :my-math package
-(in-package :my-math
-  ;; the math import will be available in this file as well
-  (export (my-division)  ; these exports can go in the defpackage call in the main file as well
-          (my-multiplication)))
-           
-;; In a sub-package in a nested directory src/sub_package
-(defpackage :my-math.sub-package
-  (import (math))  ; sub-packages don't recusively get imports
-  (export (my-sub-function)))
+;; Create a new namespace my-math, reuse if already exists.
+(ns my-math
+  ;; We use the math namespace and alias it to m
+  (use (math :as m)))
 ```
 
 ### Comments
@@ -314,16 +300,13 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   ;; using the + operator.
   (+ 1 2)
   ```
-* **Top-level comment blocks:** same as comment blocks but limited to the top of a file stating the package and a brief summary of the code in that file. 
+* **Top-level comment blocks:** same as comment blocks but limited to the top of a file with a brief summary of the code in that file. 
   ```lisp
-  ;; my-math package
-  ;; This package provides a single function my-addition to add two integers.
+  ;; The my-math namespace provides a single function my-addition to add two integers.
   
-  (defpackage :my-math
-    (import (math))
-    (export (my-addition)))
+  (ns my-math)
   
-  (defun my-addition (x y)
+  (defn my-addition (x y)
     "Takes two integer arguments and returns the sum of them."
     (+ x y))
   ```
@@ -360,10 +343,11 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 `<carrot_name>.bn` file:
 
 ```lisp
-(defpackage :<carrot_name>
-  (export (foo)))
+(ns <carrot_name>)
 
-(defun foo (argument)
+(def magic-number 42)
+
+(defn foo (argument)
   "Returns whatever argument is passed to the function."
   argument)
 ```
@@ -371,15 +355,18 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 Functions in `<carrot_name>.bn` can be used after importing, below is a simple example. 
 
 ```lisp
-(defpackage :foo-user
-  (import (<carrot_name>)))
+(use (<carrot_name>))
 
 (<carrot_name>/foo "rabbits are cool and stuff")
+(<carrot_name>/magic-number)  ; This will evaluate to 42.
 
-;; Optionally, one could import as an alias
-(import (<carrot_name> :as c))
+;; Optionally, one could import as an alias.
+(use (<carrot_name> :as crrt))
 
-(c/foo "this is much shorter!)
+(crrt/foo "this is much shorter!)
+(crrt/magic-number)  ; Still evaluates to 42.
+(mut <carrot_name>/magic-number 1)  ; This will mutate the variable globally.
+(crrt/magic-number)  ; Now evaluates to 1.
 ```
 
 ### Adding a Dependency
