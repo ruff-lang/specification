@@ -342,7 +342,7 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 
 `<carrot_name>.bn` file:
 
-```lisp
+```clojure
 (ns <carrot_name>)
 
 (def magic-number 42)
