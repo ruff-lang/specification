@@ -156,13 +156,13 @@ Bunny has two forms of functions, anonymous functions (`lambda` or `λ`) and nam
 
 Anonymous functions take the form `(λ (<arguments>) (<expression>))`. Below is an example that squares a number.
 
-```lisp
+```clojure
 (λ (x) (* x x))
 ```
 
 Since functions are values, and we use `define` to give names to values, we can use `define` and `lambda` to express a named function.
 
-```lisp
+```clojure
 (def <function_name>
   (λ (<arguments>)
     (<expression>)))
@@ -170,7 +170,7 @@ Since functions are values, and we use `define` to give names to values, we can 
 
 For example, we can define the function `incr` that increments a given integer.
 
-```lisp
+```clojure
 (def incr
   (λ (x)
     (+ x 1)))
@@ -184,7 +184,7 @@ And then invoke it:
 
 Bunny should implement a special form `defn` as a more convenient way to define functions. The `defn` form is `(defn <function_name> (<arguments>) <documentation_string:optional> (<expression>))`. The same `incr` function defined using `defn` below.
 
-```lisp
+```clojure
 (defn incr (x)
   "Increment the given integer by one."
   (+ x 1))
@@ -277,7 +277,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 (TODO...)
 
-```lisp
+```clojure
 ;; Create a new namespace my-math, reuse if already exists.
 (ns my-math
   ;; We use the math namespace and alias it to m.
@@ -301,7 +301,7 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   (+ 1 2)
   ```
 * **Top-level comment blocks:** same as comment blocks but limited to the top of a file with a brief summary of the code in that file. 
-  ```lisp
+  ```clojure
   ;; The my-math namespace provides a single function my-addition to add two integers.
   
   (ns my-math)
@@ -366,7 +366,7 @@ This will automatically add the dependency to the `carrots.bn` file.
 
 Functions in `<carrot_name>.bn` can be used after importing, below is usage based on the above example for [Creating a Library](#creating-a-library). 
 
-```lisp
+```clojure
 (use (<carrot_name>))
 
 (<carrot_name>/foo "rabbits are cool and stuff")
