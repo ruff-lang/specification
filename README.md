@@ -375,10 +375,10 @@ Functions in `<carrot_name>.bn` can be used after importing, below is usage base
 ;; Optionally, one could import as an alias.
 (use (<carrot_name> :as cn))
 
-(cn/foo "this is much shorter!)
-(cn/magic-number)  ; Still evaluates to 42.
-(mut cn/magic-number 1)  ; This will mutate the variable globally.
-(cn/magic-number)  ; Now evaluates to 1.
+(cn/foo "this is much shorter!")
+(cn/magic-number)        ; Still evaluates to 42.
+(mut cn/magic-number 1)  ; Mutate the variable globally.
+(cn/magic-number)        ; Now evaluates to 1.
 ```
 
 ### Versioning
