@@ -121,7 +121,7 @@ Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In othe
 
 Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `def` and `mut` for mutation.
 
-```lisp
+```clojure
 (def foo "foo")  ; Defines a global variable foo and binds it to the value "foo".
 (mut foo "bar")  ; Mutates the variable foo and binds it to the value "bar".
 ```
