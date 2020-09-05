@@ -280,7 +280,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 ```lisp
 ;; Create a new namespace my-math, reuse if already exists.
 (ns my-math
-  ;; We use the math namespace and alias it to m
+  ;; We use the math namespace and alias it to m.
   (use (math :as m)))
 ```
 
@@ -365,7 +365,7 @@ Functions in `<carrot_name>.bn` can be used after importing, below is a simple e
 
 (crrt/foo "this is much shorter!)
 (crrt/magic-number)  ; Still evaluates to 42.
-(mut <carrot_name>/magic-number 1)  ; This will mutate the variable globally.
+(mut crrt/magic-number 1)  ; This will mutate the variable globally.
 (crrt/magic-number)  ; Now evaluates to 1.
 ```
 
