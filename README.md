@@ -52,8 +52,8 @@ The motivation behind the specification is to produce a concrete language design
 - **Functional**, as in functions are values.
 - **Tail-Call Optimized**, recursion without the overhead.
 - **Garbage-Collected**, using a mark-and-sweep algorithm.
-- **Macros**.
-- **Continuations**, a simple interface to `call/cc`.
+- **Hygienic Macros**.
+- **Continuations**, as a first-class language feature (`call/cc`).
 - **Concurrent**, in the spirit of Go with coroutines and channels (built on top of continuations).
 - **Batteries Included**, to be a practical and productive tool (see also: https://github.com/bunny-lang/stdlib).
 - **Integrated Tooling**, `bunny` ships as a single binary with all the tools needed to be productive.
