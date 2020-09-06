@@ -76,7 +76,7 @@ An `atom` is any singlular piece of data that is not a pair. Bunny has a couple 
 
 The fundamental data type in Bunny is a pair of two things, also known as a cons cell. A first element (called `head`) and a second element (called `tail`) are all that make up a cons cell.
 
-The syntax for a cons cell is `(cons <head> <tail>)`, for example the pair for two symbols, `a` and `b` is written as `(cons a b)`. Many lisps use the dotted-pair notation to represent cons cells, for example `(<head> . <tail>)` is equivalent to `(cons <head> <tail>)`. Bunny differs here, instead reserving the `.` symbol for other operations (note: this is not finalized but may be a reversed decision).
+The syntax for a cons cell is `(cons <head> <tail>)`, for example the pair for two symbols, `a` and `b` is written as `(cons a b)`. The dotted-pair notation also represents cons cells, for example `(<head> . <tail>)` is equivalent to `(cons <head> <tail>)`.
 
 ### Lists
 
@@ -85,7 +85,7 @@ A list is an arbitrary length sequence of cons cells. The `tail` of each cons ce
 The underlying representation for a list is a cons pair as described below:
 
 ```
-(1 2 3) => (cons 1 (cons 2 (cons 3 nil)))
+(1 2 3) => (cons 1 (cons 2 (cons 3 nil))) => (1 . (2 . (3 . ()))
 ```
 
 | **Examples** | **Semantic Meaning** |
