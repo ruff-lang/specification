@@ -43,9 +43,9 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 
 (define magic-number 42)
 
-;;; Returns whatever argument is passed to the function.
-(define (foo argument))
-  argument)
+;;; Prints whatever argument is passed to the function.
+(define (foo argument)
+  (print argument))
 ```
 
 ## Adding a Dependency
