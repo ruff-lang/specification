@@ -283,17 +283,17 @@ Namespaces can also be nested, this should provide sufficient flexibility when w
 (utility-function <args>)            ; call function as if it's in the same namespace
 ```
 
-There's an obvious issue of definition names colliding, but the it would be preferable for tooling to throw an error during compilation about overriding existing definitions. For example, the following should throw an error preventing re-definition.
+There's an obvious issue of definition names colliding, but the it would be preferable for tooling to throw a warning during compilation about overriding existing definitions. For example, the following should warn about the re-definition.
 
 ``` scheme
 (define + "foo")
 ```
 
 ```
-> Error: symbol + is already defined.
+Warning: symbol + is already defined.
 ```
 
-It's possible to override definitions using `set!`, though this is discouraged and should be used sparingly.
+Functions (or any value) can be re-defined in a namespace without interfering with identically named definitions in other namespaces, but importing another namespace would override the definition in the current namespace. This can potentially be useful for monkey-patching, but should be considered risky practice. It's also possible to override definitions globally using `set!`, though this is discouraged and should be used sparingly.
 
 ## Comments
 
