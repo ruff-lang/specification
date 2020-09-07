@@ -38,13 +38,13 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 
 `<carrot_name>.bn` file:
 
-```clojure
-(ns <carrot_name>)
+```scheme
+(namespace <carrot_name>)
 
-(def magic-number 42)
+(define magic-number 42)
 
-(defn foo (argument)
-  "Returns whatever argument is passed to the function."
+;;; Returns whatever argument is passed to the function.
+(define (foo argument))
   argument)
 ```
 
@@ -62,19 +62,16 @@ This will automatically add the dependency to the `carrots.bn` file.
 
 Functions in `<carrot_name>.bn` can be used after importing, below is usage based on the above example for [Creating a Library](#creating-a-library).
 
-```clojure
-(use (<carrot_name>))
-
+```scheme
 (<carrot_name>/foo "rabbits are cool and stuff")
 (<carrot_name>/magic-number)  ; This will evaluate to 42.
 
-;; Optionally, one could import as an alias.
-(use (<carrot_name> :as cn))
+(import <carrot_name>)
 
-(cn/foo "this is much shorter!")
-(cn/magic-number)        ; Still evaluates to 42.
-(mut cn/magic-number 1)  ; Mutate the variable globally.
-(cn/magic-number)        ; Now evaluates to 1.
+(foo "this is much shorter!")
+(magic-number)         ; Still evaluates to 42.
+(set! magic-number 1)  ; Mutate the variable globally.
+(magic-number)         ; Now evaluates to 1.
 ```
 
 ## Versioning
