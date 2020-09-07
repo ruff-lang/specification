@@ -35,8 +35,11 @@ A list is an arbitrary length sequence of cons cells. The `tail` of each cons ce
 
 The underlying representation for a list is a cons pair as described below:
 
-```
-(1 2 3) => (cons 1 (cons 2 (cons 3 nil))) => (1 . (2 . (3 . ()))
+```scheme
+;; All three of the forms below are equivalent.
+(1 2 3)
+(1 . (2 . (3 . ()))
+(cons 1 (cons 2 (cons 3 nil)))
 ```
 
 | **Examples** | **Semantic Meaning** |
@@ -50,7 +53,7 @@ The underlying representation for a list is a cons pair as described below:
 
 List are always evaluated, but it's often useful to work with and manipulate them without evaluation. This is done using the concept of quoting. The following examples show some basic examples.
 
-```lisp
+```scheme
 ;; The following is evaluated
 (+ 1 2)
 => 3
@@ -72,14 +75,14 @@ Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In othe
 
 Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `define` and `set!` for mutation. Note that the `!` signifies mutation, so even user defined functions that change state should by convention be suffixed with `!`.
 
-```clojure
+```scheme
 (define foo "foo")  ; Defines a global variable foo and binds it to the value "foo".
 (set! foo "bar")  ; Mutates the variable foo and binds it to the value "bar".
 ```
 
 Variables can be lexically scoped using `let`, and then used within the scoped expression. The form used is `(let (<bindings>) (<expression>))`.
 
-```lisp
+```scheme
 ;; bind foo to the value 42 and return its square
 (let ((foo 42))
   (* foo foo))
@@ -87,7 +90,7 @@ Variables can be lexically scoped using `let`, and then used within the scoped e
 
 Multiple bindings can be used in a `let` form.
 
-```lisp
+```scheme
 (let ((foo 1)
       (bar 2))
   (+ foo bar))
@@ -95,7 +98,7 @@ Multiple bindings can be used in a `let` form.
 
 Note that the behavior of `let` evaluates each binding immediately and in-order, allowing dependent bindings.
 
-```lisp
+```scheme
 (let ((foo 2)
       (bar (+ foo 1))  ; use the previous binding of foo and add 1 to it
   (* foo bar))
@@ -150,7 +153,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `if` blocks take the form `(if (<condition>) (<true_expression>) (<false_expression>))`.
 
-```lisp
+```scheme
 (if (< 1 0)
   "condition met"
   "condition failed")
@@ -159,7 +162,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `when` is a macro that expands to `(if (<condition>) (<true_expression>) (nil))`. It is preferred when there's no `else` clause needed.
 
-```lisp
+```scheme
 (when (< 1 2)
   "condition met")
 => "condition met"
@@ -171,7 +174,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `cond` blocks are a slightly more generic way to construct multiple conditions, they take the form `(cond (<conditional_0>) (<expression_0>) ... (<conditional_n>) (<expression_n>))`.
 
-```lisp
+```scheme
 ;; Assume x is bound or supplied by a function argument, this condition will return a string
 ;; based on the value of x.
 (cond ((< x 10) "less than 10")
@@ -185,7 +188,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `and` is simply the logical and. `or` is the logical or.
 
-```lisp
+```scheme
 (and (< 1 10) (< 2 10))
 => true
 
@@ -204,14 +207,14 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `not` negates the boolean expression immediately following it.
 
-```lisp
+```scheme
 (not (< 1 2))
 => false
 ```
 
 `unless` is a macro preferred over `(if (not ..) .. ..)` and evaluates to an equivalent `if` block with the conditional expression negated.
 
-```lisp
+```scheme
 (unless (even? 2)
   "number is not even"
   "number is even!")
@@ -267,19 +270,19 @@ Example:
 Comments in Bunny are specified with semi-colons (`;`) with three distinct types of comments.
 
 * **Inline comments:** a single semi-colon `;` with two preceding whitespace characters are used for in-line comments. Used for very small comments, should be used sparingly.
-  ```lisp
+  ```scheme
   (+ 1 2)  ; Add one and two.
          ^^
       whitespace
   ```
 * **Comment blocks:** two semi-colons `;;` which can span multiple lines. Should be used generously, especially around complex code blocks and should be aligned with the line directly after.
-  ```lisp
+  ```scheme
   ;; The code below adds one and two
   ;; using the + operator.
   (+ 1 2)
   ```
 * **Documentation comment blocks:** three semi-colons `;;;` spanning multiple lines. These are used for documentation and parsed out by the documentation generator to create web docs for libraries. Markdown is supported.
-  ```clojure
+  ```scheme
   ;;; # my-math
   ;;; The my-math namespace provides a single function my-addition to add two integers.
 
