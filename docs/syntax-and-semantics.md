@@ -229,13 +229,38 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 The default global namespace is `bunny`. When launching a REPL, the user will be in the `bunny` namespace. Unless explicitly specified, definitions will automatically be in the `bunny` namespace, and it's possible to override existing definitions. This namespace contains the core language, the standard library, and any globals.
 
-To avoid overriding definitions and giving some structure to our code, we can organize code into namespaces.
+- `(namespace <name>)` will either create a new namespace, or set the current namespace if `<name>` already exists.
+- `(export (<definition_0> ... <definition_n>))` will mark definitions as exported, meaning they can be imported in other namespaces.
+- `(import <name>)` will import any exported definitions from `<name>` into the current namespace.
 
-```clojure
-;; Create a new namespace my-math, reuse if already exists.
-(ns my-math
-  ;; We use the math namespace and alias it to m.
-  (use (math :as m)))
+Example:
+
+``` scheme
+;;; # foo
+
+;; Create a new namespace foo, re-use if already exists.
+(namespace foo)
+(export (function
+         magic-name))
+
+(define (function name)
+  (print name))
+
+(define magic-name "Magic Foo")
+
+;;; # bar
+(namespace bar)
+
+(foo/function foo/magic-name)  ; this is valid and will print "Magic Foo"
+
+(import foo)
+(magic-name)  ; though importing does not require prefixing
+(function magic-name)
+
+;; Note that definitions from imports can be mutated. This will change the definition
+;; globally, so other parts of code that reference magic-name will also be affected.
+(set! magic-name "Changed")
+(function magic-name)  ; this will now print "Changed"
 ```
 
 ## Comments
@@ -254,11 +279,13 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   ;; using the + operator.
   (+ 1 2)
   ```
-* **Documentation comment blocks:** three semi-colons `;;;` spanning multiple lines. These are used for documentation and parsed out by the documentation generator to create web docs for libraries.
+* **Documentation comment blocks:** three semi-colons `;;;` spanning multiple lines. These are used for documentation and parsed out by the documentation generator to create web docs for libraries. Markdown is accepted.
   ```clojure
+  ;;; # my-math
   ;;; The my-math namespace provides a single function my-addition to add two integers.
 
-  (ns my-math)
+  (namespace my-math)
+  (export (my-addition))
 
   ;;; my-addition takes two arguments and sums them together.
   ;;;
