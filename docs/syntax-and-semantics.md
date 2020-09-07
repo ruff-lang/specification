@@ -279,7 +279,7 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   ;; using the + operator.
   (+ 1 2)
   ```
-* **Documentation comment blocks:** three semi-colons `;;;` spanning multiple lines. These are used for documentation and parsed out by the documentation generator to create web docs for libraries. Markdown is accepted.
+* **Documentation comment blocks:** three semi-colons `;;;` spanning multiple lines. These are used for documentation and parsed out by the documentation generator to create web docs for libraries. Markdown is supported.
   ```clojure
   ;;; # my-math
   ;;; The my-math namespace provides a single function my-addition to add two integers.
