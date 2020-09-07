@@ -254,8 +254,7 @@ Example:
 (foo/function foo/magic-name)  ; this is valid and will print "Magic Foo"
 
 (import foo)
-(magic-name)  ; though importing does not require prefixing
-(function magic-name)
+(function magic-name)  ; though importing does not require prefixing
 
 ;; Note that definitions from imports can be mutated. This will change the definition
 ;; globally, so other parts of code that reference magic-name will also be affected.
