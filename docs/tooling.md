@@ -11,7 +11,7 @@
 
 ## `bunny-up`
 
-The `bunny-up` tool is the simplest way to get started with `bunny`, installing the tool is simple and allows installing switching between `bunny` versions. This is based almost entirely off the great [`rustup`](https://rustup.rs/) tool. Install the tool by running the command below on a unix-like system. The source-code for `bunny-up` can be found at https://github.com/bunny-lang/bunny-up.
+The `bunny-up` tool is the simplest way to get started with `bunny`, installing the tool is simple and allows installing switching between `bunny` versions. This is based almost entirely off the great [`rustup`](https://rustup.rs/) tool. Install the tool by running the command below on a unix-like system. The source-code for `bunny-up` can be found at [https://github.com/bunny-lang/bunny-up](https://github.com/bunny-lang/bunny-up).
 
 ```shell
 $ curl --proto '=https' --tlsv1.2 -sSf https://bunny-lang.org/bunny-up.sh | sh
@@ -49,10 +49,10 @@ Recursively format all `.bn` files in the current directory tree. Returns the `0
 
 ## Carrot Registry
 
-All public `carrot`s are distributed to the centralized `carrot` registry at https://carrots.bunny-lang.org. Hosting a private `carrot` registry should be easily possible with standard webservers. `carrot`s are uniquely namespaced according to their `git` url, this gives us a uniqueness guarantee for free and discourages bizarre naming schemes to avoid collisions.
+All public `carrot`s are distributed to the centralized `carrot` registry at [https://carrots.bunny-lang.org](https://carrots.bunny-lang.org). Hosting a private `carrot` registry should be easily possible with standard webservers. `carrot`s are uniquely namespaced according to their `git` url, this gives us a uniqueness guarantee for free and discourages bizarre naming schemes to avoid collisions.
 
 A project can declare multiple registry sources in its `carrots.bn` file, and `carrot`s will be searched through the listed registries in order to resolve the package.
 
 ## Documentation
 
-Tightly integrated with the Centralized Carrot Registry, https://docs.bunny-lang.org offers a single source of documentation for the core language, the standard library, and user published `carrot`s.
+Tightly integrated with the Centralized Carrot Registry, [https://docs.bunny-lang.org](https://docs.bunny-lang.org) offers a single source of documentation for the core language, the standard library, and user published `carrot`s.

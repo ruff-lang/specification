@@ -11,7 +11,7 @@
 
 ## Overview
 
-Bunny encourages a set of conventions to make it both more approachable and simplifies tooling by being able to make certain assumptions. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with. Strong opinions for conventions is borrowed from Ruby and its wonderful community. For starters, the preferred color for Bunny is https://www.colorhexa.com/ffcfdd.
+Bunny encourages a set of conventions to make it both more approachable and simplifies tooling by being able to make certain assumptions. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with. For starters, the preferred color for Bunny is [https://www.colorhexa.com/ffcfdd](https://www.colorhexa.com/ffcfdd).
 
 ## File Format
 
