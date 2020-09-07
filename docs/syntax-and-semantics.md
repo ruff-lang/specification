@@ -265,6 +265,36 @@ Example:
 (function magic-name)  ; this will now print "Changed"
 ```
 
+Namespaces can also be nested, this should provide sufficient flexibility when writing larger pieces of software. Building on the example above for the namespace `foo`, we can add nested namespaces as shown below.
+
+``` scheme
+;;; foo.utils
+
+(namespace foo.utils)
+(export (utility-function))
+
+(define (utility-function <args>)
+  <body>)
+
+;; In any other namespace, we can call foo.utils/utility-function explicitly
+;; or we can import foo.utils and call utility-function.
+(foo.utils/utility-function <args>)  ; explicitly address namespaced function
+(import foo.utils)                   ; import exported functions into current namespace
+(utility-function <args>)            ; call function as if it's in the same namespace
+```
+
+There's an obvious issue of definition names colliding, but the it would be preferable for tooling to throw an error during compilation about overriding existing definitions. For example, the following should throw an error preventing re-definition.
+
+``` scheme
+(define + "foo)
+```
+
+```
+> Error: symbol + is already defined.
+```
+
+It's possible to override definitions using `set!`, though this is discouraged and should be used sparingly.
+
 ## Comments
 
 Comments in Bunny are specified with semi-colons (`;`) with three distinct types of comments.
