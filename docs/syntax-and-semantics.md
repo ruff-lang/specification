@@ -70,11 +70,11 @@ Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In othe
 
 ## Variables
 
-Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `def` and `mut` for mutation.
+Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `define` and `set!` for mutation. Note that the `!` signifies mutation, so even user defined functions that change state should by convention be suffixed with `!`.
 
 ```clojure
-(def foo "foo")  ; Defines a global variable foo and binds it to the value "foo".
-(mut foo "bar")  ; Mutates the variable foo and binds it to the value "bar".
+(define foo "foo")  ; Defines a global variable foo and binds it to the value "foo".
+(set! foo "bar")  ; Mutates the variable foo and binds it to the value "bar".
 ```
 
 Variables can be lexically scoped using `let`, and then used within the scoped expression. The form used is `(let (<bindings>) (<expression>))`.
@@ -104,41 +104,41 @@ Note that the behavior of `let` evaluates each binding immediately and in-order,
 
 ## Functions
 
-Bunny has two forms of functions, anonymous functions (`lambda` or `λ`) and named functions (`defun`). Named functions are just syntactic sugar for a `λ` inside a `def` form.
+Bunny has two forms of functions, anonymous functions (`lambda` or `λ`) and named functions which are just syntactic sugar for a `λ` inside a `define` form.
 
 Anonymous functions take the form `(λ (<arguments>) (<expression>))`. Below is an example that squares a number.
 
-```clojure
+```scheme
 (λ (x) (* x x))
 ```
 
 Since functions are values, and we use `define` to give names to values, we can use `define` and `lambda` to express a named function.
 
-```clojure
-(def <function_name>
+```scheme
+(define <function_name>
   (λ (<arguments>)
     (<expression>)))
 ```
 
 For example, we can define the function `incr` that increments a given integer.
 
-```clojure
-(def incr
+```scheme
+(define incr
   (λ (x)
     (+ x 1)))
 ```
 
 And then invoke it:
 
-```lisp
-(incr 1) => 2
+```scheme
+(incr 1)
+=> 2
 ```
 
-Bunny should implement a special form `defn` as a more convenient way to define functions. The `defn` form is `(defn <function_name> (<arguments>) <documentation_string:optional> (<expression>))`. The same `incr` function defined using `defn` below.
+Bunny should implement a special short-hand form for `define` as a more convenient way to define functions. The `define` form for named functions is is `(define (<function_name> <arguments>) (<expression>))`. The same `incr` function defined using the `define` short-hand form below.
 
-```clojure
-(defn incr (x)
-  "Increment the given integer by one."
+```scheme
+(define (incr x)
   (+ x 1))
 ```
 
@@ -254,13 +254,15 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   ;; using the + operator.
   (+ 1 2)
   ```
-* **Top-level comment blocks:** same as comment blocks but limited to the top of a file with a brief summary of the code in that file.
+* **Documentation comment blocks:** three semi-colons `;;;` spanning multiple lines. These are used for documentation and parsed out by the documentation generator to create web docs for libraries.
   ```clojure
-  ;; The my-math namespace provides a single function my-addition to add two integers.
+  ;;; The my-math namespace provides a single function my-addition to add two integers.
 
   (ns my-math)
 
-  (defn my-addition (x y)
-    "Takes two integer arguments and returns the sum of them."
+  ;;; my-addition takes two arguments and sums them together.
+  ;;;
+  ;;; usage: `(my-addition 1 2)`
+  (define (my-addition x y)
     (+ x y))
   ```
