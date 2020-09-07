@@ -1,3 +1,4 @@
 theme: jekyll-theme-cayman
 title: The Bunny programming language
 description: Dynamic, Fun(ctional), Elegant!
+site_favicon: favicon.ico
