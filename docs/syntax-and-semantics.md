@@ -286,7 +286,7 @@ Namespaces can also be nested, this should provide sufficient flexibility when w
 There's an obvious issue of definition names colliding, but the it would be preferable for tooling to throw an error during compilation about overriding existing definitions. For example, the following should throw an error preventing re-definition.
 
 ``` scheme
-(define + "foo)
+(define + "foo")
 ```
 
 ```
