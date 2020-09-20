@@ -233,7 +233,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 The default global namespace is `bunny`. When launching a REPL, the user will be in the `bunny` namespace. Unless explicitly specified, definitions will automatically be in the `bunny` namespace, and it's possible to override existing definitions. This namespace contains the core language, the standard library, and any globals.
 
 - `(namespace <name>)` will either create a new namespace, or set the current namespace if `<name>` already exists.
-- `(export (<definition_0> ... <definition_n>))` will mark definitions as exported, meaning they can be imported in other namespaces.
+- `(export [<definition_0> ... <definition_n>])` will mark definitions as exported, meaning they can be imported in other namespaces.
 - `(import <name>)` will import any exported definitions from `<name>` into the current namespace.
 
 Example:
@@ -243,8 +243,8 @@ Example:
 
 ;; Create a new namespace foo, re-use if already exists.
 (namespace foo)
-(export (function
-         magic-name))
+(export [function
+         magic-name])
 
 (define (function name)
   (print name))
@@ -271,7 +271,7 @@ Namespaces can also be nested, this should provide sufficient flexibility when w
 ;;; foo.utils
 
 (namespace foo.utils)
-(export (utility-function))
+(export [utility-function])
 
 (define (utility-function <args>)
   <body>)
@@ -317,7 +317,7 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   ;;; The my-math namespace provides a single function my-addition to add two integers.
 
   (namespace my-math)
-  (export (my-addition))
+  (export [my-addition])
 
   ;;; my-addition takes two arguments and sums them together.
   ;;;

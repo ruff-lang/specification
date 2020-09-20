@@ -40,6 +40,8 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 
 ```scheme
 (namespace <carrot_name>)
+(export [magic-number
+         foo])
 
 (define magic-number 42)
 
