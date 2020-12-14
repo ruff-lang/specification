@@ -1,5 +1,3 @@
-# Specification
-
 ## Table Of Contents
 
 * [Syntax and Semantics](#syntax-and-semantics)
@@ -78,7 +76,7 @@ The underlying representation for a list is a cons pair as described below:
 
 List are always evaluated, but it's often useful to work with and manipulate them without evaluation. This is done using the concept of quoting. The following examples show some basic examples.
 
-```scheme
+```
 ;; The following is evaluated
 (+ 1 2)
 => 3
@@ -361,13 +359,13 @@ Bunny calls libraries carrots, as in "add the postgresql carrot to your dependen
 
 Creating a new `carrot` should be as simple as:
 
-```shell
+```
 $ bunny carrot new <carrot_name:required> --bin=cli  # example to add an optional binary executable entrypoint to the carrot
 ```
 
 This should setup a directory `<carrot_name>` with the skeleton for a new carrot. Modify the `carrot_spec.bn` accordingly, and code away. Other projects can use this code now by adding `<carrot_name>` to its `carrots.bn` file and importing `<carrot_name>` in code. Below is what the directory structure will look like.
 
-```shell
+```
 .
 ├── bin          # Optional: The binary directory can hold any code specific to binary executable entry points
 │   └── cli.bn   #           that might be shipped with a carrot. This example shows a cli entrypoint.
@@ -382,7 +380,7 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 
 `<carrot_name>.bn` file:
 
-```scheme
+```
 (namespace <carrot_name>)
 (export [magic-number
          foo])
@@ -398,7 +396,7 @@ This should setup a directory `<carrot_name>` with the skeleton for a new carrot
 
 All project or library dependencies should be added to the `carrots.bn` file either manually or by invoking the `bunny` command.
 
-```shell
+```
 $ bunny carrot add <carrot_name:required> <carrot_version:optional>
 ```
 
@@ -408,7 +406,7 @@ This will automatically add the dependency to the `carrots.bn` file.
 
 Functions in `<carrot_name>.bn` can be used after importing, below is usage based on the above example for [Creating a Library](#creating-a-library).
 
-```scheme
+```
 (<carrot_name>/foo "rabbits are cool and stuff")
 (<carrot_name>/magic-number)  ; This will evaluate to 42.
 
@@ -434,25 +432,25 @@ All `carrot`s should follow [Semantic Versioning](https://semver.org/). For exam
 
 The `bunny-up` tool is the simplest way to get started with `bunny`, installing the tool is simple and allows installing switching between `bunny` versions. This is based almost entirely off the great [`rustup`](https://rustup.rs/) tool. Install the tool by running the command below on a unix-like system. The source-code for `bunny-up` can be found at [https://github.com/bunny-lang/bunny-up](https://github.com/bunny-lang/bunny-up).
 
-```shell
+```
 $ curl --proto '=https' --tlsv1.2 -sSf https://bunny-lang.org/bunny-up.sh | sh
 ```
 
 Install the language:
 
-```shell
+```
 $ bunny-up install  # default to latest 'stable' release
 ```
 
 Install a specific version:
 
-```shell
+```
 $ bunny-up install 0.0.1
 ```
 
 Use a specific version:
 
-```shell
+```
 $ bunny-up use 0.0.1
 ```
 
@@ -537,7 +535,7 @@ The directory structure for a carrot (library) is pretty similar, except there's
 
 Code structure and formatting should not be an argument. Bunny takes Go's approach by providing a standardized code formatter with the core tooling.
 
-```shell
+```
 $ bunny format  # or aliased 'bunny fmt'
 ```
 
