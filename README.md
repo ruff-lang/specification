@@ -1,8 +1,8 @@
 # Bunny Language Specification
 
-![Bunny][logo-image]
+![Bunny][logo-image =100x]
 
-This repository holds the canonical specification for the Bunny programming language.
+This repository holds the canonical specification for the Bunny programming language. The specification is a single file written in [Markdown](https://en.wikipedia.org/wiki/Markdown) in the [specification.md](specification.md) file.
 
 # Version
 
