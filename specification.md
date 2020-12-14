@@ -11,6 +11,28 @@
   * [Conditionals](#conditionals)
   * [Namespaces](#namespaces)
   * [Comments](#comments)
+* [Libraries (Carrots)](#libraries-carrots)
+  * [Creating a Library](#creating-a-library)
+  * [Adding a Dependency](#adding-a-dependency)
+  * [Using a Library](#using-a-library)
+  * [Versioning](#versioning)
+  * [Distributing](#distributing)
+* [Tooling](#tooling)
+  * [`bunny-up`](#bunny-up)
+  * [The `bunny` command](#the-bunny-command)
+  * [`bunny format`](#bunny-format)
+  * [Dependency Manager](#dependency-manager)
+  * [Carrot Registry](#carrot-registry)
+  * [Documentation Generation](#documentation-generator)
+  * [Centralized Documentation](#centralized-documentation)
+* [Conventions and Style Guide](#conventions-and-style-guide)
+  * [File Format](#file-format)
+  * [Directory Structure](#directory-structure)
+  * [Code Format](#code-format)
+  * [Avoid Ambiguity](#avoid-ambiguity)
+  * [Document Carrot Interfaces](#document-carrot-interfaces)
+
+---
 
 ## Syntax and Semantics
 
@@ -38,7 +60,7 @@ A list is an arbitrary length sequence of cons cells. The `tail` of each cons ce
 
 The underlying representation for a list is a cons pair as described below:
 
-```scheme
+```
 ;; All three of the forms below are equivalent.
 (1 2 3)
 (1 . (2 . (3 . ()))
@@ -78,14 +100,14 @@ Given an empty list `()`, `(head '())` is `()` and `(tail '())` is `()`. In othe
 
 Variables can be defined globally and mutated, though mutation should be used sparingly. This interface is exposed to the user since practical applications often require variable mutation, for example for configuring runtime behavior based on some variables. The form for defining a global variable is `define` and `set!` for mutation. Note that the `!` signifies mutation, so even user defined functions that change state should by convention be suffixed with `!`.
 
-```scheme
+```
 (define foo "foo")  ; Defines a global variable foo and binds it to the value "foo".
 (set! foo "bar")  ; Mutates the variable foo and binds it to the value "bar".
 ```
 
 Variables can be lexically scoped using `let`, and then used within the scoped expression. The form used is `(let (<bindings>) (<expression>))`.
 
-```scheme
+```
 ;; bind foo to the value 42 and return its square
 (let ((foo 42))
   (* foo foo))
@@ -93,7 +115,7 @@ Variables can be lexically scoped using `let`, and then used within the scoped e
 
 Multiple bindings can be used in a `let` form.
 
-```scheme
+```
 (let ((foo 1)
       (bar 2))
   (+ foo bar))
@@ -101,7 +123,7 @@ Multiple bindings can be used in a `let` form.
 
 Note that the behavior of `let` evaluates each binding immediately and in-order, allowing dependent bindings.
 
-```scheme
+```
 (let ((foo 2)
       (bar (+ foo 1))  ; use the previous binding of foo and add 1 to it
   (* foo bar))
@@ -114,13 +136,13 @@ Bunny has two forms of functions, anonymous functions (`lambda` or `λ`) and nam
 
 Anonymous functions take the form `(λ (<arguments>) (<expression>))`. Below is an example that squares a number.
 
-```scheme
+```
 (λ (x) (* x x))
 ```
 
 Since functions are values, and we use `define` to give names to values, we can use `define` and `lambda` to express a named function.
 
-```scheme
+```
 (define <function_name>
   (λ (<arguments>)
     (<expression>)))
@@ -128,7 +150,7 @@ Since functions are values, and we use `define` to give names to values, we can 
 
 For example, we can define the function `incr` that increments a given integer.
 
-```scheme
+```
 (define incr
   (λ (x)
     (+ x 1)))
@@ -136,14 +158,14 @@ For example, we can define the function `incr` that increments a given integer.
 
 And then invoke it:
 
-```scheme
+```
 (incr 1)
 => 2
 ```
 
 Bunny should implement a special short-hand form for `define` as a more convenient way to define functions. The `define` form for named functions is is `(define (<function_name> <arguments>) (<expression>))`. The same `incr` function defined using the `define` short-hand form below.
 
-```scheme
+```
 (define (incr x)
   (+ x 1))
 ```
@@ -156,7 +178,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `if` blocks take the form `(if (<condition>) (<true_expression>) (<false_expression>))`.
 
-```scheme
+```
 (if (< 1 0)
   "condition met"
   "condition failed")
@@ -165,7 +187,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `when` is a macro that expands to `(if (<condition>) (<true_expression>) (nil))`. It is preferred when there's no `else` clause needed.
 
-```scheme
+```
 (when (< 1 2)
   "condition met")
 => "condition met"
@@ -177,7 +199,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `cond` blocks are a slightly more generic way to construct multiple conditions, they take the form `(cond (<conditional_0>) (<expression_0>) ... (<conditional_n>) (<expression_n>))`.
 
-```scheme
+```
 ;; Assume x is bound or supplied by a function argument, this condition will return a string
 ;; based on the value of x.
 (cond ((< x 10) "less than 10")
@@ -191,7 +213,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `and` is simply the logical and. `or` is the logical or.
 
-```scheme
+```
 (and (< 1 10) (< 2 10))
 => true
 
@@ -210,14 +232,14 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `not` negates the boolean expression immediately following it.
 
-```scheme
+```
 (not (< 1 2))
 => false
 ```
 
 `unless` is a macro preferred over `(if (not ..) .. ..)` and evaluates to an equivalent `if` block with the conditional expression negated.
 
-```scheme
+```
 (unless (even? 2)
   "number is not even"
   "number is even!")
@@ -241,7 +263,7 @@ The default global namespace is `bunny`. When launching a REPL, the user will be
 
 Example:
 
-``` scheme
+```
 ;;; # foo
 
 ;; Create a new namespace foo, re-use if already exists.
@@ -270,7 +292,7 @@ Example:
 
 Namespaces can also be nested, this should provide sufficient flexibility when writing larger pieces of software. Building on the example above for the namespace `foo`, we can add nested namespaces as shown below.
 
-``` scheme
+```
 ;;; foo.utils
 
 (namespace foo.utils)
@@ -288,7 +310,7 @@ Namespaces can also be nested, this should provide sufficient flexibility when w
 
 There's an obvious issue of definition names colliding, but the it would be preferable for tooling to throw an error during compilation about overriding existing definitions. For example, the following should warn about the re-definition.
 
-``` scheme
+```
 (define + "foo")
 ```
 
@@ -303,19 +325,19 @@ Functions (or any value) can be re-defined in a namespace without interfering wi
 Comments in Bunny are specified with semi-colons (`;`) with three distinct types of comments.
 
 * **Inline comments:** a single semi-colon `;` with two preceding whitespace characters are used for in-line comments. Used for very small comments, should be used sparingly.
-  ```scheme
+  ```
   (+ 1 2)  ; Add one and two.
          ^^
       whitespace
   ```
 * **Comment blocks:** two semi-colons `;;` which can span multiple lines. Should be used generously, especially around complex code blocks and should be aligned with the line directly after.
-  ```scheme
+  ```
   ;; The code below adds one and two
   ;; using the + operator.
   (+ 1 2)
   ```
 * **Documentation comment blocks:** three semi-colons `;;;` spanning multiple lines. These are used for documentation and parsed out by the documentation generator to create web docs for libraries. Markdown is supported.
-  ```scheme
+  ```
   ;;; # my-math
   ;;; The my-math namespace provides a single function my-addition to add two integers.
 
@@ -328,3 +350,201 @@ Comments in Bunny are specified with semi-colons (`;`) with three distinct types
   (define (my-addition x y)
     (+ x y))
   ```
+
+---
+
+## Libraries (Carrots)
+
+Bunny calls libraries carrots, as in "add the postgresql carrot to your dependencies". Creating and distributing carrots should be an integrated part of the `bunny` tooling, much like Ruby with it's incredible [bundler](https://bundler.io/) tool. The tooling should also handle documentation generation, similar to [rustdoc](https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html).
+
+### Creating a Library
+
+Creating a new `carrot` should be as simple as:
+
+```shell
+$ bunny carrot new <carrot_name:required> --bin=cli  # example to add an optional binary executable entrypoint to the carrot
+```
+
+This should setup a directory `<carrot_name>` with the skeleton for a new carrot. Modify the `carrot_spec.bn` accordingly, and code away. Other projects can use this code now by adding `<carrot_name>` to its `carrots.bn` file and importing `<carrot_name>` in code. Below is what the directory structure will look like.
+
+```shell
+.
+├── bin          # Optional: The binary directory can hold any code specific to binary executable entry points
+│   └── cli.bn   #           that might be shipped with a carrot. This example shows a cli entrypoint.
+├── carrot_spec.bn
+├── carrots.bn
+├── carrots.lock
+├── lib
+│   └── <carrot_name>.bn
+└── test
+    └── <carrot_name>_test.bn
+```
+
+`<carrot_name>.bn` file:
+
+```scheme
+(namespace <carrot_name>)
+(export [magic-number
+         foo])
+
+(define magic-number 42)
+
+;;; Prints whatever argument is passed to the function.
+(define (foo argument)
+  (print argument))
+```
+
+### Adding a Dependency
+
+All project or library dependencies should be added to the `carrots.bn` file either manually or by invoking the `bunny` command.
+
+```shell
+$ bunny carrot add <carrot_name:required> <carrot_version:optional>
+```
+
+This will automatically add the dependency to the `carrots.bn` file.
+
+### Using a Library
+
+Functions in `<carrot_name>.bn` can be used after importing, below is usage based on the above example for [Creating a Library](#creating-a-library).
+
+```scheme
+(<carrot_name>/foo "rabbits are cool and stuff")
+(<carrot_name>/magic-number)  ; This will evaluate to 42.
+
+(import <carrot_name>)
+
+(foo "this is much shorter!")
+(magic-number)         ; Still evaluates to 42.
+(set! magic-number 1)  ; Mutate the variable globally.
+(magic-number)         ; Now evaluates to 1.
+```
+
+### Versioning
+
+All `carrot`s should follow [Semantic Versioning](https://semver.org/). For example, the first stable release of Bunny will be `v1.0.0`.
+
+### Distributing
+
+`carrot`s are encouraged to be published and distributed through the [carrot registry](#carrot-registry), which is the default built into the dependency manager. It is also possible to distribute `carrot`s through [GitHub Releases](https://docs.github.com/en/github/administering-a-repository/about-releases).
+
+---
+
+### `bunny-up`
+
+The `bunny-up` tool is the simplest way to get started with `bunny`, installing the tool is simple and allows installing switching between `bunny` versions. This is based almost entirely off the great [`rustup`](https://rustup.rs/) tool. Install the tool by running the command below on a unix-like system. The source-code for `bunny-up` can be found at [https://github.com/bunny-lang/bunny-up](https://github.com/bunny-lang/bunny-up).
+
+```shell
+$ curl --proto '=https' --tlsv1.2 -sSf https://bunny-lang.org/bunny-up.sh | sh
+```
+
+Install the language:
+
+```shell
+$ bunny-up install  # default to latest 'stable' release
+```
+
+Install a specific version:
+
+```shell
+$ bunny-up install 0.0.1
+```
+
+Use a specific version:
+
+```shell
+$ bunny-up use 0.0.1
+```
+
+### The `bunny` command
+
+Everything you should need to get up and running with the bunny programming language, from learning to running in production, is included in a single binary: `bunny`. The `bunny` binary includes the core language runtime and standard library, a build tool, a dependency manager, a formatter, a documentation generator, and potentially more.
+
+### `bunny format`
+
+Recursively format all `.bn` files in the current directory tree. Returns the `0` exit code if all files already comply with `bunny` formatting, and returns the `1` exit code when it writes changes.
+
+### Dependency Manager
+
+`bunny` ships with a built in dependency manager to manage `carrot`s. By default, the central carrot registry is used to resolve dependencies. Multiple registries can be used in the `carrots.bn` file to support private `carrot`s. [GitHub Releases](https://docs.github.com/en/github/administering-a-repository/about-releases) can also be used to import `carrot`s that are not in the central registry.
+
+### Carrot Registry
+
+All public `carrot`s are distributed to the centralized `carrot` registry at [https://carrots.bunny-lang.org](https://carrots.bunny-lang.org). Hosting a private `carrot` registry should be easily possible with standard webservers. `carrot`s are uniquely namespaced according to their `git` url, this gives us a uniqueness guarantee for free and discourages bizarre naming schemes to avoid collisions.
+
+A project can declare multiple registry sources in its `carrots.bn` file, and `carrot`s will be searched through the listed registries in order to resolve the package.
+
+### Documentation Generator
+
+TODO...
+
+### Centralized Documentation
+
+Tightly integrated with the Centralized Carrot Registry, [https://docs.bunny-lang.org](https://docs.bunny-lang.org) offers a single source of documentation for the core language, the standard library, and user published `carrot`s.
+
+---
+
+## Conventions and Style Guide
+
+Bunny encourages a set of conventions to make it both more approachable and simplifies tooling by being able to make certain assumptions. The ideal would be to have tooling make it hard to break these conventions, and provide enough automation to make the defaults easy to get started with.
+
+### File Format
+
+Software written in **Bunny** should always be in a [UTF-8](https://en.wikipedia.org/wiki/UTF-8) file with the `.bn` extensions. File names should always be lower-case and `snake_case`, e.g. `file_format.bn`.
+
+### Directory Structure
+
+Here's an example directory structure for a hypothetical project.
+
+```
+.
+├── bin
+│   ├── cli.bn
+│   └── server.bn
+├── carrots.bn
+├── carrots.lock
+├── lib
+│   └── utils.bn
+├── src
+│   └── application.bn
+└── test
+    └── application_test.bn
+```
+
+- `bin` (optional) should contain entrypoints to code, for example a `cli` launcher or `server` launcher.
+- `carrots.bn` should describe the dependencies for the project.
+- `carrots.lock` is the generated lock file with the dependency graph based on `carrots.bn`.
+- `lib` (optional) should contain any utilities or shared code for the project.
+- `src` contains all the application specific code for the project.
+- `test` contains tests for the project.
+
+The directory structure for a carrot (library) is pretty similar, except there's no `src` directory and there's a `carrot_spec.bn` file at the root.
+
+```
+.
+├── bin
+│   └── cli.bn
+├── carrot_spec.bn
+├── carrots.bn
+├── carrots.lock
+├── lib
+│   └── magic_calculator.bn
+└── test
+    └── magic_calculator_test.bn
+```
+
+### Code Format
+
+Code structure and formatting should not be an argument. Bunny takes Go's approach by providing a standardized code formatter with the core tooling.
+
+```shell
+$ bunny format  # or aliased 'bunny fmt'
+```
+
+### Avoid Ambiguity
+
+All `bunny` code should avoid ambiguity whenever possible. This applies to file, variable, function, and other names. Explicit over implicit. Full names over abbreviations.
+
+### Document Carrot Interfaces
+
+Each `carrot` should document its public interface (i.e. all definitions that are exported) using the documentation comment syntax above definitions. When distributing `carrot`s, the documentation generator can publish the documentation in the centralized `carrot` repository in `Markdown` and provide a uniform way to browse documentation.
