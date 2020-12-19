@@ -1,7 +1,3 @@
-## Table of Contents
-
-## Syntax and Semantics
-
 ### Atoms
 
 An `atom` is a singular piece of data.
