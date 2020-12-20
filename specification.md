@@ -1,3 +1,7 @@
+### File Format
+
+Bunny source files must be [UTF-8](https://en.wikipedia.org/wiki/UTF-8) with the `.bn` file extension.
+
 ### Atoms
 
 An `atom` is a singular piece of data.
@@ -63,6 +67,25 @@ Lists are always evaluates unless explicitly quoted. Quoting stops evaluation. L
 ```
 (tail '(1 2 3))
 => (2 3)
+```
+
+### Comments
+
+Comments in Bunny are specified with two forward-slashes `//`.
+
+```
+// this is a comment
+
+// this is a comment that
+// spans multiple lines
+```
+
+In-line comments should have two whitespaces preceding.
+
+```
+(+ 1 2)  // add one and two
+       ^^
+   whitespace
 ```
 
 ### Variables
@@ -173,13 +196,14 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 `cond` blocks are a slightly more generic way to construct multiple conditions, they take the form `(cond (<conditional_0>) (<expression_0>) ... (<conditional_n>) (<expression_n>))`.
 
 ```
-// Assume x is bound or supplied by a function argument, this condition will return a string
-// based on the value of x.
+// Assume x is bound or supplied by a function argument, this
+// condition will return a string based on the value of x.
 (cond ((< x 10) "less than 10")
       ((< x 100) "less than 100")
       (else "no conditions met"))
 
-// If no result expression is given, the condition block will return the result of the conditional expression.
+// If no result expression is given, the condition block will
+// return the result of the conditional expression.
 (cond ((< 1 10)))
 => true
 ```
@@ -214,16 +238,49 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 ```
 (unless (even? 2)
-  "number is not even"
-  "number is even!")
-=> "number is even!"
+  "not even"
+  "even")
+=> "even"
 
-// unless can be used without a second clause, this makes it an implicit nil
-(unless (odd? 2) "number is not odd")
-=> "number is not odd"
+// unless can be used without a second clause making it an implicit nil
+(unless (odd? 2) "not odd")
+=> "not odd"
 
-(unless (odd? 3) "number is not odd")
+(unless (odd? 3) "not odd")
 => nil
+```
+
+### Concurrency
+
+The runtime handles all concurrency tasks and exposes a simple interface with fibers and channels.
+
+You can start a new concurrent task with `fiber`.
+
+```
+(fiber
+  (while true
+    (sleep 10)
+    (println "brr")))
+```
+
+Channels can be created with `chan`.
+
+```
+(chan test-channel)
+```
+
+Things can be added to a channel with `send`.
+
+```
+(send "foo" test-channel)
+```
+
+`recv` blocks until the channel has something on it.
+
+```
+(while true
+  (let ((msg (recv test-channel)))
+    (println (sprintf "received a new mesage: %s" msg))))
 ```
 
 ### Modules
@@ -236,8 +293,8 @@ A module can be defined to only explicitly export a list of public functions. Ot
 // utilities.bn
 
 (defmodule utilities
-  (export (print-uppercase
-           print-lowercase)))
+  (:export (print-uppercase
+            print-lowercase)))
 ```
 
 In another file this module can be used.
@@ -255,22 +312,3 @@ To avoid having to use the dot notation, the module can be imported with `use`.
 ```
 
 If a value is already defined leading to a name conflict, `(use <module>)` will throw an error at build time.
-
-### Comments
-
-Comments in Bunny are specified with two forward-slashes `//`.
-
-```
-// this is a comment
-
-// this is a comment that
-// spans multiple lines
-```
-
-In-line comments should have two whitespaces preceding.
-
-```
-(+ 1 2)  // add one and two
-       ^^
-   whitespace
-```
