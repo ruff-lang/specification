@@ -296,16 +296,16 @@ Things can be added to a channel with `send`.
 It can be useful to have a looping construct matching on multiple channels. `select` allows you to match on multiple channels. `(select (<channel_0> <message_0> <body_0>) ... (<channel_n> <message_n> <body_n>))`.
 
 ```
-(select (foo-chan :msg
-          (println (sprintf "received from foo-chan: %s" :msg))
-        (bar-chan :msg
-          (println (sprintf "received from bar-chan: %s" :msg))
+(select (foo-chan msg
+          (println (sprintf "received from foo-chan: %s" msg))
+        (bar-chan msg
+          (println (sprintf "received from bar-chan: %s" msg))
         (error-chan nil
           (println "got an error, exiting)
           (exit)))
 ```
 
-We specify the channel, a locally scoped keyword to put the received item from the channel into (`nil` if not needed), and a body specifying what to do when that channel receives an item.
+We specify the channel, a locally scoped variable to put the received item from the channel into (`nil` if not needed), and a body specifying what to do when that channel receives an item.
 
 ### Modules
 
