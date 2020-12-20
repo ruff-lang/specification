@@ -23,7 +23,7 @@ Fundamental data type in Bunny. A cons cell is a pair of two things. The first e
 | head | tail |
  ------ ------
    ^      ^
-   |      |____ this holds a pointer to another cons cell
+   |      |__ this holds a pointer to another cons cell
    |
    |__ this holds an atom
 ```
