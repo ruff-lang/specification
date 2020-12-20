@@ -288,14 +288,13 @@ You can start a new concurrent task with `fiber`.
     (println "brr")))
 ```
 
-Tasks can be exited out with `(exit)`. Every fiber implicitly has a reference to its parent and also any child fiber, and as such can invoke the `(parent-exit?)` method to detect if the parent exited out and `(child-exit?)` to detect if a child fiber exited out.
+Tasks can be exited out with `(done)`. Every fiber implicitly has a reference to its parent fiber, and as such can invoke the `(done? parent)` method to detect if the parent exited out.
 
 ```
 (fiber
   (while true
-    (cond ((parent-exit?) (exit))
-          ((child-exit?)) (exit))
-          (else (println "brr"))))
+    (cond ((done? parent) (done))
+          (else (println "brr")))))
 ```
 
 Channels can be created with `chan`.
