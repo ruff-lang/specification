@@ -327,7 +327,7 @@ It can be useful to have a looping construct matching on multiple channels. `sel
   (bar-chan msg
     (println (sprintf "received from bar-chan: %s" msg))
   (error-chan nil
-    (println "got an error, exiting)
+    (println "got an error, exiting")
     (exit)))
 ```
 
