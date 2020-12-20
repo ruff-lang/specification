@@ -55,6 +55,31 @@ Lists are always evaluates unless explicitly quoted. Quoting stops evaluation. L
 => (+ 1 2)
 ```
 
+Inside a quoted form, we can resume evaluation selectively. This is called unquoting. Tilde (`~`) is the suntax for unquoting.
+
+```
+(quote (+ 1 (unquote (+ 2 3))))
+=> (+ 1 5)
+
+// equivalent, using syntactic sugar
+'(+ ~(+ 2 3))
+=> (+ 1 5)
+```
+
+Forms can be unquoted (`unquote-splice`) into the position in the quoted template. This is useful for when you want to flatten a list. The at-sign (`@`) is the syntax for unquote-splice. For example:
+
+```
+'(1 2 ~(list 3 4))
+=> (1 2 (3 4))
+
+(quote (1 2 (unquote-splice (list 3 4))))
+=> (1 2 3 4)
+
+// equivalent, using syntactic sugar
+'(1 2 @(list 3 4))
+=> (1 2 3 4)
+```
+
 `head` is a function returning the head of a list.
 
 ```
@@ -296,13 +321,14 @@ Things can be added to a channel with `send`.
 It can be useful to have a looping construct matching on multiple channels. `select` allows you to match on multiple channels. `(select (<channel_0> <message_0> <body_0>) ... (<channel_n> <message_n> <body_n>))`.
 
 ```
-(select (foo-chan msg
-          (println (sprintf "received from foo-chan: %s" msg))
-        (bar-chan msg
-          (println (sprintf "received from bar-chan: %s" msg))
-        (error-chan nil
-          (println "got an error, exiting)
-          (exit)))
+(select
+  (foo-chan msg
+    (println (sprintf "received from foo-chan: %s" msg))
+  (bar-chan msg
+    (println (sprintf "received from bar-chan: %s" msg))
+  (error-chan nil
+    (println "got an error, exiting)
+    (exit)))
 ```
 
 We specify the channel, a locally scoped variable to put the received item from the channel into (`nil` if not needed), and a body specifying what to do when that channel receives an item.
