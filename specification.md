@@ -19,10 +19,10 @@ An `atom` is a singular piece of data.
 Fundamental data type in Bunny. A cons cell is a pair of two things. The first element is called the `head` and the second element is called the `tail` and is a pointer to another cons cell. `nil` terminates a sequence of cons cells.
 
 ```
- ------ ------
++------+------+
 | head | tail |
- ------ ------
-   ^      ^
++------+------+
+   |      |
    |      |__ this holds a pointer to another cons cell
    |
    |__ this holds an atom
@@ -341,7 +341,7 @@ A module can be defined to only explicitly export a list of public functions. Ot
 ```
 // utilities.bn
 
-(defmodule utilities
+(defmodule Utilities
   (:export (print-uppercase
             print-lowercase)))
 ```
@@ -349,13 +349,13 @@ A module can be defined to only explicitly export a list of public functions. Ot
 In another file this module can be used.
 
 ```
-(utilities.print-uppercase "hello")
+(Utilities.print-uppercase "hello")
 ```
 
 To avoid having to use the dot notation, the module can be imported with `use`.
 
 ```
-(use utilities)
+(use Utilities)
 
 (print-uppercase "hello")
 ```
