@@ -379,7 +379,7 @@ Alternatively, a file containing definitions _not_ in a module can be imported f
 // helpers.bn
 
 (define (roll-dice)
-  (Random.select '(1 2 3 4 5 6))
+  (Random.pick '(1 2 3 4 5 6))
 ```
 
 and import in another using relative path:
