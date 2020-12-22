@@ -383,6 +383,7 @@ Alternatively, a file containing definitions _not_ in a module can be imported f
 ```
 
 and import in another using relative path:
+
 ```
 // application.bn
 
@@ -391,3 +392,5 @@ and import in another using relative path:
 (roll-dice)
 => 6
 ```
+
+If `application.bn` already defines a symbol in `helpers.bn`, `import` will throw an error at build time.
