@@ -336,7 +336,7 @@ We specify the channel, a locally scoped variable to put the received item from 
 
 Modules provide a way of organizing and grouping code together. They also provide a convenient way to distinguish between code meant to be shared or exposed (in the case of a library) and code meant for internal use only.
 
-A module can be defined to onlye explicitly export a list of public functions. Otherwise, all definitions inside the module will be implicitly exported. We can define a new module using `defmodule`, and tell the language where we're implementing that module with `implement`. Note that both the module definition and the implement directive can be in the same file.
+A module can be defined to only explicitly export a list of public functions. Otherwise, all definitions inside the module will be implicitly exported. We can define a new module using `defmodule`, and tell the language where we're implementing that module with `implement`. Note that both the module definition and the implement directive can be in the same file.
 
 ```
 // mod.bn
