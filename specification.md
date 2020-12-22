@@ -334,22 +334,32 @@ We specify the channel, a locally scoped variable to put the received item from 
 
 ### Modules
 
-Modules provide a way of organizing and grouping code together.
+Modules provide a way of organizing and grouping code together. They also provide a convenient way to distinguish between code meant to be shared or exposed (in the case of a library) and code meant for internal use only.
 
-A module can be defined to only explicitly export a list of public functions. Otherwise, all definitions inside the module will be implicitly exported.
+A module can be defined to onlye explicitly export a list of public functions. Otherwise, all definitions inside the module will be implicitly exported. We can define a new module using `defmodule`, and tell the language where we're implementing that module with `implement`. Note that both the module definition and the implement directive can be in the same file.
 
 ```
-// utilities.bn
+// mod.bn
 
 (defmodule Utilities
   (:export (print-uppercase
             print-lowercase)))
 ```
 
+```
+// utilities.bn
+
+(implement Utilities)
+
+(define (print-uppercase arg)
+  (String.upper arg))
+```
+
 In another file this module can be used.
 
 ```
 (Utilities.print-uppercase "hello")
+=> "HELLO"
 ```
 
 To avoid having to use the dot notation, the module can be imported with `use`.
@@ -358,6 +368,26 @@ To avoid having to use the dot notation, the module can be imported with `use`.
 (use Utilities)
 
 (print-uppercase "hello")
+=> "HELLO"
 ```
 
-If a value is already defined leading to a name conflict, `(use <module>)` will throw an error at build time.
+If a symbol is already defined leading to a name conflict, `(use <module>)` will throw an error at build time.
+
+Alternatively, a file containing definitions _not_ in a module can be imported for use. Define in one file:
+
+```
+// helpers.bn
+
+(define (roll-dice)
+  (Random.select '(1 2 3 4 5 6))
+```
+
+and import in another using relative path:
+```
+// application.bn
+
+(import "helpers.bn")
+
+(roll-dice)
+=> 6
+```
