@@ -306,7 +306,7 @@ Channels can be created with `chan`.
 Things can be added to a channel with `send`.
 
 ```
-(send "foo" test-channel)
+(send test-channel "foo")
 ```
 
 `recv` blocks until the channel has something on it.
