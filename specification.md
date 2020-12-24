@@ -186,10 +186,10 @@ And then invoke it:
 => 2
 ```
 
-A special short-hand form for `define` is a convenient way to define named functions with arguments. `(define (<function_name> <arguments>) (<expression>))`. The same `incr` function defined using the `define` short-hand form below.
+A special short-hand form `defun` is a convenient way to define named functions with arguments. `(defun <function_name> (<arguments>) (<expression>))`. The same `incr` function defined using the `defun` short-hand form below.
 
 ```
-(define (incr x)
+(defun incr (x)
   (+ x 1))
 ```
 
@@ -351,8 +351,9 @@ A module can be defined to only explicitly export a list of public functions. Ot
 
 (implement Utilities)
 
-(define (print-uppercase arg)
-  (String.upper arg))
+(defun print-uppercase (arg)
+  (let ((uppercase (String.upper arg)))
+    (println uppercase)))
 ```
 
 In another file this module can be used.
@@ -378,7 +379,7 @@ Alternatively, a file containing definitions _not_ in a module can be imported f
 ```
 // helpers.bn
 
-(define (roll-dice)
+(defun roll-dice ()
   (Random.pick '(1 2 3 4 5 6))
 ```
 
