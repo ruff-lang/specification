@@ -14,7 +14,7 @@ An `atom` is a singular piece of data.
 |number   | Any integer, or floating point integer for example `1`, `19`, `3.14159265` |
 |character| Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet. |
 
-### Cons Cell
+### Cons Cell (Pairs)
 
 Fundamental data type in Bunny. A cons cell is a pair of two things. The first element is called the `head` and the second element is called the `tail` and is a pointer to another cons cell. `nil` terminates a sequence of cons cells.
 
@@ -23,9 +23,9 @@ Fundamental data type in Bunny. A cons cell is a pair of two things. The first e
 | head | tail |
 +------+------+
    |      |
-   |      |__ this holds a pointer to another cons cell
+   |      |__ this holds a pointer to another pair or nil
    |
-   |__ this holds an atom
+   |__ this holds an atom or a pair
 ```
 
 Syntax to build cons cells is `(cons <head> <tail>)`. Dotted-pair notation is syntactic sugar, `(<head> . <tail>)`.
