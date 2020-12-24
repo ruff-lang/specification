@@ -9,7 +9,7 @@ An `atom` is a singular piece of data.
 |**Atom** |**Semantic Meaning**|
 |---------|--------------------|
 |symbol   | A symbol is a word or an operator, for example `foo` is a symbol and so is `+` |
-|keyword  | A keyword is like a symbol that is exported and evaluates to itself, for example `:foo` is a keyword |
+|keyword  | A keyword is like a symbol that evaluates to itself, for example `:foo` is a keyword |
 |boolean  | `true` is a symbol representing the truthy boolean. `false` is an aliased symbol representing falsity (the underlying implementation for falsity is `nil`) |
 |number   | Any integer, or floating point integer for example `1`, `19`, `3.14159265` |
 |character| Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet. |
@@ -42,7 +42,7 @@ Lists are arbitrarily long sequences of cons cells. Data structures formed with 
 
 `()` is the empty list and is equivalent to `nil`.
 
-Lists are always evaluates unless explicitly quoted. Quoting stops evaluation. Lists can be quoted with `(quote <list>)` or the syntactic sugared form, `'(<list>)`.
+Lists are always evaluated unless explicitly quoted. Quoting stops evaluation. Lists can be quoted with `(quote <list>)` or the syntactic sugared form, `'(<list>)`.
 
 ```
 (+ 1 2)
