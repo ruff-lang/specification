@@ -342,8 +342,8 @@ A module can be defined to only explicitly export a list of public functions. Ot
 // mod.bn
 
 (defmodule Utilities
-  (:export (print-uppercase
-            print-lowercase)))
+  (export (print-uppercase
+           print-lowercase)))
 ```
 
 ```
