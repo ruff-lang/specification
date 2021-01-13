@@ -314,7 +314,7 @@ Things can be added to a channel with `send`.
 ```
 (while true
   (let ((msg (recv test-channel)))
-    (println (sprintf "received a new mesage: %s" msg))))
+    (println (format "received a new mesage: %s" msg))))
 ```
 
 It can be useful to have a looping construct matching on multiple channels. `select` allows you to match on multiple channels. `(select (<channel_0> <message_0> <body_0>) ... (<channel_n> <message_n> <body_n>))`.
@@ -322,9 +322,9 @@ It can be useful to have a looping construct matching on multiple channels. `sel
 ```
 (select
   (foo-chan msg
-    (println (sprintf "received from foo-chan: %s" msg))
+    (println (format "received from foo-chan: %s" msg))
   (bar-chan msg
-    (println (sprintf "received from bar-chan: %s" msg))
+    (println (format "received from bar-chan: %s" msg))
   (error-chan nil
     (println "got an error, exiting select loop")
     (done)))
@@ -336,7 +336,7 @@ We specify the channel, a locally scoped variable to put the received item from 
 
 Modules provide a way of organizing and grouping code together. They also provide a convenient way to distinguish between code meant to be shared or exposed (in the case of a library) and code meant for internal use only.
 
-A module can be defined to only explicitly export a list of public functions. Otherwise, all definitions inside the module will be implicitly exported. We can define a new module using `defmodule`, and tell the language where we're implementing that module with `implement`. Note that both the module definition and the implement directive can be in the same file.
+A module can be defined to only explicitly export a list of public functions. Otherwise, all definitions inside the module will be implicitly exported. We can define a new module using `defmodule`, and tell the language where we're implementing that module with `module`. Note that both the module definition and the implement directive can be in the same file.
 
 ```
 // mod.bn
@@ -349,7 +349,7 @@ A module can be defined to only explicitly export a list of public functions. Ot
 ```
 // utilities.bn
 
-(implement Utilities)
+(module Utilities)
 
 (defun print-uppercase (arg)
   (let ((uppercase (String.upper arg)))
