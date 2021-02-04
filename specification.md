@@ -61,7 +61,7 @@ Inside a quoted form, we can resume evaluation selectively. This is called unquo
 (quote (+ 1 (unquote (+ 2 3))))
 => (+ 1 5)
 
-// equivalent, using syntactic sugar
+# equivalent, using syntactic sugar
 '(+ ~(+ 2 3))
 => (+ 1 5)
 ```
@@ -75,7 +75,7 @@ Forms can be unquoted (`unquote-splice`) into the position in the quoted templat
 (quote (1 2 (unquote-splice (list 3 4))))
 => (1 2 3 4)
 
-// equivalent, using syntactic sugar
+# equivalent, using syntactic sugar
 '(1 2 @(list 3 4))
 => (1 2 3 4)
 ```
@@ -96,19 +96,19 @@ Forms can be unquoted (`unquote-splice`) into the position in the quoted templat
 
 ### Comments
 
-Comments in Bunny are specified with two forward-slashes `//`.
+Comments in Bunny are specified with a single hashtag, `#`.
 
 ```
-// this is a comment
+# this is a comment
 
-// this is a comment that
-// spans multiple lines
+# this is a comment that
+# spans multiple lines
 ```
 
 In-line comments should have two whitespaces preceding.
 
 ```
-(+ 1 2)  // add one and two
+(+ 1 2)  # add one and two
        ^^
    whitespace
 ```
@@ -218,14 +218,14 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 `cond` blocks are a slightly more generic way to construct multiple conditions, they take the form `(cond (<conditional_0>) (<expression_0>) ... (<conditional_n>) (<expression_n>))`.
 
 ```
-// Assume x is bound or supplied by a function argument, this
-// condition will return a string based on the value of x.
+# Assume x is bound or supplied by a function argument, this
+# condition will return a string based on the value of x.
 (cond ((< x 10) "less than 10")
       ((< x 100) "less than 100")
       (else "no conditions met"))
 
-// If no result expression is given, the condition block will
-// return the result of the conditional expression.
+# If no result expression is given, the condition block will
+# return the result of the conditional expression.
 (cond ((< 1 10)))
 => true
 ```
@@ -264,7 +264,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
     "even")
 => "even"
 
-// unless can be used without a second clause making it an implicit nil
+# unless can be used without a second clause making it an implicit nil
 (unless (odd? 2) "not odd")
 => "not odd"
 
@@ -336,7 +336,7 @@ Modules provide a way of organizing and grouping code together. They also provid
 A module can be defined to only explicitly export a list of public functions. Otherwise, all definitions inside the module will be implicitly exported. We can define a new module using `defmodule`, and tell the language where we're implementing that module with `module`. Note that both the module definition and the implement directive can be in the same file.
 
 ```
-// mod.bn
+# mod.bn
 
 (defmodule Utilities
     (export (print-uppercase
@@ -344,7 +344,7 @@ A module can be defined to only explicitly export a list of public functions. Ot
 ```
 
 ```
-// utilities.bn
+# utilities.bn
 
 (module Utilities)
 
@@ -374,7 +374,7 @@ If a symbol is already defined leading to a name conflict, `(use <module>)` will
 Alternatively, a file containing definitions _not_ in a module can be imported for use. Define in one file:
 
 ```
-// helpers.bn
+# helpers.bn
 
 (defun roll-dice ()
     (Random.pick '(1 2 3 4 5 6))
@@ -383,7 +383,7 @@ Alternatively, a file containing definitions _not_ in a module can be imported f
 and import in another using relative path:
 
 ```
-// application.bn
+# application.bn
 
 (import "helpers.bn")
 
