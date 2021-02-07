@@ -1,3 +1,9 @@
+<!---
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+
 ### File Format
 
 Bunny source files must be [UTF-8](https://en.wikipedia.org/wiki/UTF-8) with the `.bn` file extension.
