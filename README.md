@@ -10,4 +10,4 @@ The specification is currently at version `v0.0.1`. The expected 'stable' specif
 
 # License
 
-MIT. See [LICENSE](LICENSE).
+MPL-2.0, See [LICENSE](LICENSE).
