@@ -323,7 +323,7 @@ And things can be taken off a queue with `take`, which blocks until the queue ha
 ```
 (while true
   (let ((msg (take q)))
-	(println (format "got message: %s" msg))))
+    (println (format "got message: %s" msg))))
 ```
 
 We can put an error on the queue as a signal to a fiber to terminate. Here's an example of a fiber that prints messages received.
