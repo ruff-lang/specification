@@ -326,7 +326,7 @@ And things can be taken off a queue with `take`, which blocks until the queue ha
     (println (format "got message: %s" msg))))
 ```
 
-We can put an error on the queue as a signal to a fiber to terminate. Here's an example of a fiber that prints messages received.
+We can put an error on the queue as a signal to a fiber to terminate. Here's an example of a fiber that prints messages received til it sees an error.
 
 ```
 (let ((q (queue)))
@@ -336,9 +336,7 @@ We can put an error on the queue as a signal to a fiber to terminate. Here's an 
         (when (error? msg) (done))
         (println (format "received: %s" msg))))))
   (put q "hello")
-  (sleep 10)
   (put q "hello again!")
-  (sleep 10)
   (put q (error "signaling an error")))
 
 => "received: hello"
