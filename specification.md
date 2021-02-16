@@ -332,9 +332,9 @@ We can put an error on the queue as a signal to a fiber to terminate. Here's an 
 (let ((q (queue)))
   (fiber 
     (while true
-	  (let ((msg (take q)))
-	    (when (error? msg) (done))
-		(println (format "received: %s" msg))))))
+      (let ((msg (take q)))
+        (when (error? msg) (done))
+        (println (format "received: %s" msg))))))
   (put q "hello")
   (sleep 10)
   (put q "hello again!")
