@@ -280,7 +280,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 ### Concurrency
 
-The runtime handles all concurrency tasks and exposes a simple interface with fibers and channels.
+Lightweight threads are used for concurrency, also known as coroutines, green threads, and fibers. The runtime handles all concurrency tasks and exposes a simple interface with fibers. Messages can be shared across fibers using queues.
 
 You can start a new concurrent task with `fiber`.
 
@@ -291,49 +291,56 @@ You can start a new concurrent task with `fiber`.
     (println "brr")))
 ```
 
-Tasks can be exited out with `(done)`. Every fiber implicitly has a reference to its parent fiber, and as such can invoke the `(done? parent)` method to detect if the parent exited out.
+Fibers can be exited out with `(done)`. Every fiber implicitly has a reference to its parent fiber, and as such can invoke the `(done? parent)` method to detect if the parent exited out.
 
 ```
 (fiber
   (while true
-    (cond ((done? parent) (done))
-           (else (println "brr")))))
+    (when ((done? parent) (done)))
+	(println "brr")))
 ```
 
-Channels can be created with `chan`.
+Queues can be created with `queue`.
 
 ```
-(chan test-channel)
+(let ((q (queue)))
+  <body>)
 ```
 
-Things can be added to a channel with `send`.
+Things can be added to a queue with `put`.
 
 ```
-(send test-channel "foo")
+(let ((q queue))
+  (put q "foo"))
 ```
 
-`recv` blocks until the channel has something on it.
+And things can be taken off a queue with `take`, which blocks until the queue has something on it.
 
 ```
 (while true
-  (let ((msg (recv test-channel)))
-    (println (format "received a new mesage: %s" msg))))
+  (let ((msg (take q)))
+	(println (format "got message: %s" msg))))
 ```
 
-It can be useful to have a looping construct matching on multiple channels. `select` allows you to match on multiple channels. `(select (<channel_0> <message_0> <body_0>) ... (<channel_n> <message_n> <body_n>))`.
+We can put an error on the queue as a signal to a fiber to terminate. Here's an example of a fiber that prints messages received.
 
 ```
-(select
-  (foo-chan msg 
-    (println (format "received from foo-chan: %s" msg))
-  (bar-chan msg 
-    (println (format "received from bar-chan: %s" msg))
-  (error-chan nil 
-    (println "got an error, exiting select loop")
-    (done)))
-```
+(let ((q (queue)))
+  (fiber 
+    (while true
+	  (let ((msg (take q)))
+	    (when (error? msg) (done))
+		(println (format "received: %s" msg))))))
+  (put q "hello")
+  (sleep 10)
+  (put q "hello again!")
+  (sleep 10)
+  (put q (error "signaling an error")))
 
-We specify the channel, a locally scoped variable to put the received item from the channel into (`nil` if not needed), and a body specifying what to do when that channel receives an item.
+=> "received: hello"
+   "received: hello again!"
+   nil
+```
 
 ### Modules
 
