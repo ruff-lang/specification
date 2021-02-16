@@ -346,6 +346,8 @@ We can put an error on the queue as a signal to a fiber to terminate. Here's an 
    nil
 ```
 
+Note that using `define` will create a queue in the global scope and will not be garbage collected. Using `let` will clean up the queue resources once that bound variable is no longer referenced.
+
 ### Modules
 
 Modules provide a way of organizing and grouping code together. They also provide a convenient way to distinguish between code meant to be shared or exposed (in the case of a library) and code meant for internal use only.
