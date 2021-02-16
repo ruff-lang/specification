@@ -278,6 +278,10 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 => nil
 ```
 
+### Errors
+
+TODO...
+
 ### Concurrency
 
 Lightweight threads are used for concurrency, also known as coroutines, green threads, and fibers. The runtime handles all concurrency tasks and exposes a simple interface with fibers. Messages can be shared across fibers using queues.
