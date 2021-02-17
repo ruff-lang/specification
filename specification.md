@@ -300,7 +300,7 @@ Fibers can be exited out with `(done)`. Every fiber implicitly has a reference t
 ```
 (fiber
   (while true
-    (when ((done? parent) (done)))
+    (when (done? parent) (done))
 	(println "brr")))
 ```
 
