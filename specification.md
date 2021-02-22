@@ -217,7 +217,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 (when (< 1 2) (println "condition met"))
 => "condition met"
 
-(when (< 1 2) (println "condition met"))
+(when (< 3 2) (println "condition met"))
 => nil
 ```
 
@@ -239,19 +239,16 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 `and` is simply the logical and. `or` is the logical or.
 
 ```
-(and (< 1 10) (< 2 10))
+(and (< 1 2) (< 2 3))
 => true
 
-(and (< 10 1) (< 2 10))
+(and (< 2 1) (< 2 3))
 => false
 
-(or (< 1 10) (< 2 10))
+(or (< 2 1) (< 1 2))
 => true
 
-(or (< 5 1) (< 2 3))
-=> true
-
-(or (< 5 1) (< 3 2))
+(or (< 2 1) (< 3 1))
 => false
 ```
 
@@ -278,7 +275,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 => nil
 ```
 
-### Errors
+### Errors and Conditions
 
 TODO...
 
@@ -326,15 +323,15 @@ And things can be taken off a queue with `take`, which blocks until the queue ha
 We can put an error on the queue as a signal to a fiber to terminate. Here's an example of a fiber that prints messages received til it sees an error.
 
 ```
-(let ((msgs (queue)))
+(let ((messages (queue)))
   (fiber 
     (while true
-      (let ((msg (take msgs)))
+      (let ((msg (take messages)))
         (when (error? msg) (done))
         (println (format "received: %s" msg))))))
-  (put q "hello")
-  (put q "hello again!")
-  (put q (error "signaling an error")))
+  (put messages "hello")
+  (put messages "hello again!")
+  (put messages (error "signaling an error")))
 
 => "received: hello"
    "received: hello again!"
