@@ -16,7 +16,7 @@ An `atom` is a singular piece of data.
 |---------|--------------------|
 |symbol   | A symbol is a word or an operator, for example `foo` is a symbol and so is `+` |
 |keyword  | A keyword is like a symbol that evaluates to itself, for example `:foo` is a keyword |
-|boolean  | `true` is a symbol representing the truthy boolean. `false` is an aliased symbol representing falsity (the underlying implementation for falsity is `nil`) |
+|boolean  | `true` is a symbol representing the truthy boolean. `false` is a symbol representing falsity |
 |number   | Any integer, or floating point integer for example `1`, `19`, `3.14159265` |
 |character| Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet. |
 
