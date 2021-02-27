@@ -298,7 +298,7 @@ Fibers can be exited out with `(done)`. Every fiber implicitly has a reference t
 (fiber
   (while true
     (when (parent-done?) (done))
-	(println "brr")))
+    (println "brr")))
 ```
 
 Queues can be created with `queue`.
