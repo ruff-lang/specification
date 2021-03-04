@@ -16,37 +16,37 @@ An `atom` is a singular piece of data.
 |---------|--------------------|
 |symbol   | A symbol is a word or an operator, for example `foo` is a symbol and so is `+` |
 |keyword  | A keyword is like a symbol that evaluates to itself, for example `:foo` is a keyword |
-|boolean  | `true` is a symbol representing the truthy boolean. `false` is a symbol representing falsity |
+|boolean  | `true` and `false` are symbols representing truthiness |
 |number   | Any integer, or floating point integer for example `1`, `19`, `3.14159265` |
 |character| Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet. |
 
 ### Cons Cell (Pairs)
 
-Fundamental data type in Bunny. A cons cell is a pair of two things. The first element is called the `head` and the second element is called the `tail` and is a pointer to another cons cell. `nil` terminates a sequence of cons cells.
+The core data type in Bunny, a cons cell is a pair of two things. The front of the pair is the `first` and the second element is referred to as `rest` and is a pointer to another pair.
 
 ```
 +------+------+
 | head | tail |
 +------+------+
-   |      |
-   |      |__ this holds a pointer to another pair or nil
-   |
-   |__ this holds an atom or a pair
+    |      |
+    |      |__ this holds a pointer to another pair
+    |
+    |__ this holds an atom or a pair
 ```
 
-Syntax to build cons cells is `(cons <head> <tail>)`. Dotted-pair notation is syntactic sugar, `(<head> . <tail>)`.
+Syntax to build a pair is `(pair <first> <rest>)`. Dotted-pair notation is syntactic sugar, `(<first> . <rest>)`.
 
 ### Lists
 
-Lists are arbitrarily long sequences of cons cells. Data structures formed with cons cells are lists. All three forms below are equivalent.
+Lists are arbitrarily long sequences of pairs. Data structures formed with pairs are called lists, and if they're terminated by an empty list they're called proper lists. `()` is the empty list. Lists can also be 
+
+All three forms below are equivalent.
 
 ```
 (1 2 3)
-(1 . (2 . (3 . nil)))
-(cons 1 (cons 2 (cons 3 nil)))
+(1 . (2 . (3 . '())))
+(pair 1 (pair 2 (pair 3 '())))
 ```
-
-`()` is the empty list and is equivalent to `nil`.
 
 Lists are always evaluated unless explicitly quoted. Quoting stops evaluation. Lists can be quoted with `(quote <list>)` or the syntactic sugared form, `'(<list>)`.
 
@@ -86,17 +86,17 @@ Forms can be unquoted (`unquote-splice`) into the position in the quoted templat
 => (1 2 3 4)
 ```
 
-`head` is a function returning the head of a list.
+`first` is a function returning the first element of a pair or a list.
 
 ```
-(head '(1 2 3))
+(first '(1 2 3))
 => 1
 ```
 
-`tail` is a function returning the tail.
+`rest` is a function returning the rest of the list.
 
 ```
-(tail '(1 2 3))
+(rest '(1 2 3))
 => (2 3)
 ```
 
@@ -211,14 +211,13 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 => "condition failed"
 ```
 
-`when` is a macro that expands to `(if (<condition>) (<true_expression>) (nil))`. It is preferred when there's no `else` clause needed.
+`when` is a macro that expands to `(if (<condition>) (<true_expression>) none)`. It is preferred when there's no `else` clause needed.
 
 ```
 (when (< 1 2) (println "condition met"))
 => "condition met"
 
-(when (< 3 2) (println "condition met"))
-=> nil
+(when (< 3 2) (println "condition met"))  # nothing will be displayed in the REPL
 ```
 
 `cond` blocks are a slightly more generic way to construct multiple conditions, they take the form `(cond (<conditional_0>) (<expression_0>) ... (<conditional_n>) (<expression_n>))`.
@@ -267,12 +266,11 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
   (println "even"))
 => "even"
 
-# unless can be used without a second clause making it an implicit nil
+# unless can be used without a second clause making it an implicit none
 (unless (odd? 2) (println "not odd"))
 => "not odd"
 
-(unless (odd? 3) (println "not odd"))
-=> nil
+(unless (odd? 3) (println "not odd"))  # nothing will be displayed in the REPL
 ```
 
 ### Errors and Conditions
@@ -341,10 +339,9 @@ We can put an error on the queue as a signal to a fiber to terminate. Here's an 
 
 => "received: hello"
    "received: hello again!"
-   nil
 ```
 
-Note that using `define` will create a queue in the global scope and will not be garbage collected. Using `let` will clean up the queue resources once that bound variable is no longer referenced.
+Note that using `define` will create a queue in the global scope of the module or file and will not be garbage collected. Using `let` will clean up the queue resources once that bound variable is no longer referenced.
 
 ### Modules
 
