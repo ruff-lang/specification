@@ -20,25 +20,25 @@ An `atom` is a singular piece of data.
 |number   | Any integer, or floating point integer for example `1`, `19`, `3.14159265` |
 |character| Any letter prepended with a backslash, for example `\a` represents the first letter of the english alphabet. |
 
-### Cons Cell (Pairs)
+### Pairs (Cons cell)
 
-The core data type in Bunny, a cons cell is a pair of two things. The front of the pair is the `first` and the second element is referred to as `rest` and is a pointer to another pair.
+The core data type in Bunny, a cons cell is a pair of two things. The first thing in the pair is known as the `head`, and the second thing is known as the `tail`.
 
 ```
 +------+------+
 | head | tail |
 +------+------+
     |      |
-    |      |__ this holds a pointer to another pair
+    |      |__ this points to another pair
     |
     |__ this holds an atom or a pair
 ```
 
-Syntax to build a pair is `(pair <first> <rest>)`. Dotted-pair notation is syntactic sugar, `(<first> . <rest>)`.
+Syntax to build a pair is `(pair <head> <tail>)`. Dotted-pair notation is syntactic sugar, `(<head> . <tail>)`.
 
 ### Lists
 
-Lists are arbitrarily long sequences of pairs. Data structures formed with pairs are called lists, and if they're terminated by an empty list they're called proper lists. `()` is the empty list. Lists can also be 
+Lists are arbitrarily long sequences of pairs. `()` is the empty list, or a pair with no head or tail. Lists are created with sequences of pairs where the last element is the empty list.
 
 All three forms below are equivalent.
 
@@ -48,7 +48,7 @@ All three forms below are equivalent.
 (pair 1 (pair 2 (pair 3 '())))
 ```
 
-Lists are always evaluated unless explicitly quoted. Quoting stops evaluation. Lists can be quoted with `(quote <list>)` or the syntactic sugared form, `'(<list>)`.
+Lists are always evaluated unless they are quoted. Quoting stops evaluation. Lists can be quoted with `(quote <list>)` or the syntactic sugared form, `'(<list>)`.
 
 ```
 (+ 1 2)
@@ -61,7 +61,7 @@ Lists are always evaluated unless explicitly quoted. Quoting stops evaluation. L
 => (+ 1 2)
 ```
 
-Inside a quoted form, we can resume evaluation selectively. This is called unquoting. Tilde (`~`) is the suntax for unquoting.
+Inside a quoted form, we can resume evaluation selectively. This is called unquoting. `(unquote <list>)` or syntactic sugared form, tilde `~<list>`, are used to unquote a list.
 
 ```
 (quote (+ 1 (unquote (+ 2 3))))
@@ -72,7 +72,7 @@ Inside a quoted form, we can resume evaluation selectively. This is called unquo
 => (+ 1 5)
 ```
 
-Forms can be unquoted (`unquote-splice`) into the position in the quoted template. This is useful for when you want to flatten a list. The at-sign (`@`) is the syntax for unquote-splice. For example:
+Lists can be unquoted into position in the quoted template with `unquote-splice`. This is useful for when you want to flatten a list. The at-sign (`@`) is the syntax for unquote-splice. For example:
 
 ```
 '(1 2 ~(list 3 4))
@@ -86,17 +86,17 @@ Forms can be unquoted (`unquote-splice`) into the position in the quoted templat
 => (1 2 3 4)
 ```
 
-`first` is a function returning the first element of a pair or a list.
+`head` is a function returning the first element of a pair or a list.
 
 ```
-(first '(1 2 3))
+(head '(1 2 3))
 => 1
 ```
 
-`rest` is a function returning the rest of the list.
+`tail` is a function returning the rest of the list.
 
 ```
-(rest '(1 2 3))
+(tail '(1 2 3))
 => (2 3)
 ```
 
