@@ -78,7 +78,7 @@ Lists can be unquoted into position in the quoted template with `unquote-splice`
 '(1 2 ~(list 3 4))
 => (1 2 (3 4))
 
-(quote (1 2 (unquote-splice (list 3 4))))
+(quote (1 2 (unquote_splice (list 3 4))))
 => (1 2 3 4)
 
 # equivalent, using syntactic sugar
@@ -277,12 +277,6 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 TODO...
 
-### Type System
-
-Bunny is a statically typed language without burdening the user with manually annotated types using [Hindley-Milner](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system) type-system for type inference.
-
-TODO...
-
 ### Concurrency
 
 Lightweight threads are used for concurrency, also known as coroutines, green threads, and fibers. The runtime handles all concurrency tasks and exposes a simple interface with fibers. Messages can be shared across fibers using queues.
@@ -296,46 +290,46 @@ You can start a new concurrent task with `fiber`.
     (println "brr")))
 ```
 
-Fibers can be exited out with `(done)`. Every fiber implicitly has a reference to its parent fiber, and as such can invoke the `parent-done?` method to detect if the parent exited out.
+Fibers can be exited out with `(done)`. Every fiber implicitly has a reference to its parent fiber, and as such can invoke the `done?` method to detect if the parent exited out.
 
 ```
 (fiber
   (while true
-    (when (parent-done?) (done))
+    (when (done?) (done))
     (println "brr")))
 ```
 
 Queues can be created with `queue`.
 
 ```
-(define some-queue (queue))
+(define some_queue (queue))
 ```
 
 Things can be added to a queue with `put`.
 
 ```
-(put some-queue "foo")
+(put some_queue "foo")
 ```
 
 And things can be taken off a queue with `take`, which blocks until the queue has something on it.
 
 ```
-(let ((msg (take some-queue)))
+(let ((msg (take some_queue)))
   (println (format "got message: %s" msg))))
 ```
 
 We can put an error on the queue as a signal to a fiber to terminate. Here's an example of a fiber that prints messages received til it sees an error.
 
 ```
-(let ((messages (queue)))
+(let ((msgs (queue)))
   (fiber 
     (while true
-      (let ((msg (take messages)))
+      (let ((msg (take msgs)))
         (when (error? msg) (done))
         (println (format "received: %s" msg))))))
-  (put messages "hello")
-  (put messages "hello again!")
-  (put messages (error "signaling an error")))
+  (put msgs "hello")
+  (put msgs "hello again!")
+  (put msgs (error "signaling an error")))
 
 => "received: hello"
    "received: hello again!"
@@ -353,8 +347,8 @@ A module can be defined to only explicitly export a list of public functions. Ot
 # mod.bn
 
 (defmodule Utilities
-  (export (print-uppercase
-           print-lowercase)))
+  (export (print_uppercase
+           print_lowercase)))
 ```
 
 ```
@@ -362,7 +356,7 @@ A module can be defined to only explicitly export a list of public functions. Ot
 
 (module Utilities)
 
-(defun print-uppercase (arg)
+(defun print_uppercase (arg)
   (let ((uppercase (String.upper arg)))
     (println uppercase)))
 ```
@@ -370,7 +364,7 @@ A module can be defined to only explicitly export a list of public functions. Ot
 In another file this module can be used.
 
 ```
-(Utilities.print-uppercase "hello")
+(Utilities.print_uppercase "hello")
 => "HELLO"
 ```
 
@@ -379,7 +373,7 @@ To avoid having to use the dot notation, the module can be imported with `use`.
 ```
 (use Utilities)
 
-(print-uppercase "hello")
+(print_uppercase "hello")
 => "HELLO"
 ```
 
@@ -390,7 +384,7 @@ Alternatively, a file containing definitions _not_ in a module can be imported f
 ```
 # helpers.bn
 
-(defun roll-dice ()
+(defun roll_dice ()
   (Random.pick '(1 2 3 4 5 6))
 ```
 
@@ -401,7 +395,7 @@ and import in another using relative path:
 
 (import "helpers.bn")
 
-(roll-dice)
+(roll_dice)
 => 6
 ```
 
