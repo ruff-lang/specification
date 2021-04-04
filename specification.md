@@ -273,9 +273,38 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 (unless (odd? 3) (println "not odd"))  # nothing will be displayed in the REPL
 ```
 
-### Errors and Signals
+### Loops
 
-TODO...
+There are a few ways to loop over a conditional or over a sequence (as in, a list).
+
+The `while` loop takes and evaluates a conditional beforing entering the body. The form is `(while <condition> <body>)`.
+
+```
+# infinite loop
+(while true
+  (println "brrr"))
+```
+
+A `for` loop loops over a sequence, allowing the user to operate on each element of that sequence. Note that this is not a very _functional_ approach, but allows for some flexibility when needed. The form is `(for (<variable> <sequence>) <body>)`.
+
+```
+(define names '(albert bob carl))
+
+# prints each name in the list
+(for (name names)
+  (println name))
+```
+
+Finally, the more idiomatic way of writing the above using `map`, form: `(map <function> <sequence>)`.
+
+```
+# equivalent to the for loop, but simpler and more idiomatic
+(map println names)
+```
+
+### Signals and Errors
+
+The signal system is a generic way to _signal_ the occurrence of an event in control flow.
 
 ### Concurrency
 
