@@ -273,7 +273,7 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 (unless (odd? 3) (println "not odd"))  # nothing will be displayed in the REPL
 ```
 
-### Errors and Conditions
+### Errors and Signals
 
 TODO...
 
