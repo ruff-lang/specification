@@ -288,10 +288,8 @@ The `while` loop takes and evaluates a conditional beforing entering the body. T
 A `for` loop loops over a sequence, allowing the user to operate on each element of that sequence. Note that this is not a very _functional_ approach, but allows for some flexibility when needed. The form is `(for (<variable> <sequence>) <body>)`.
 
 ```
-(define names '(albert bob carl))
-
 # prints each name in the list
-(for (name names)
+(for (name '(albert bob carl))
   (println name))
 ```
 
@@ -299,12 +297,12 @@ Finally, the more idiomatic way of writing the above using `map`, form: `(map <f
 
 ```
 # equivalent to the for loop, but simpler and more idiomatic
-(map println names)
+(map println '(albert bob carl))
 ```
 
 ### Signals and Errors
 
-The signal system is a generic way to _signal_ the occurrence of an event in control flow.
+TODO...
 
 ### Concurrency
 
