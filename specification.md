@@ -102,7 +102,7 @@ Lists can be unquoted into position in the quoted template with `unquote_splice`
 
 ### Arrays and Hash Maps
 
-Two additional native datastructures are available, arrays and maps. The syntax for arrays is square brackets, `[]`, `[1 2 3]`, etc. Arrays evaluate to themselves and are immutable. 
+Two additional native datastructures are available, arrays and hash maps. The syntax for arrays is square brackets, `[]`, `[1 2 3]`, etc. Arrays evaluate to themselves and are immutable. 
 
 ```
 (define names ["albert" "bob" "charlie"])
@@ -124,7 +124,7 @@ Two additional native datastructures are available, arrays and maps. The syntax 
 => ["bob" "charlie"]
 ```
 
-Maps, like arrays, are immutable and evaluate to themselves. Maps are created with `{}`, and can assign arbitrary keys and values.
+Hash maps, like arrays, are immutable and evaluate to themselves. Hash maps are created with `{}`, and can assign arbitrary keys and values.
 
 ```
 (define contact {:first_name "Mister"
@@ -132,7 +132,7 @@ Maps, like arrays, are immutable and evaluate to themselves. Maps are created wi
                  :number 1234567890})
 
 # you can lookup values for a key
-(Map.get contact :first_name)
+(Hash.get contact :first_name)
 => "Mister"
 ```
 
