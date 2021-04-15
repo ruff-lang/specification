@@ -102,7 +102,7 @@ Lists can be unquoted into position in the quoted template with `unquote_splice`
 
 ### Arrays and Hash Maps
 
-Two additional native datastructures are available, arrays and hash maps. The syntax for arrays is square brackets, `[]`, `[1 2 3]`, etc. Arrays evaluate to themselves and are immutable. 
+Two additional native datastructures are available, arrays and maps. The syntax for arrays is square brackets, `[]`, `[1 2 3]`, etc. Arrays evaluate to themselves and are immutable. 
 
 ```
 (define names ["albert" "bob" "charlie"])
@@ -124,7 +124,7 @@ Two additional native datastructures are available, arrays and hash maps. The sy
 => ["bob" "charlie"]
 ```
 
-Hash maps, like arrays, are immutable and evaluate to themselves. Hash maps are created with `{}`, and can assign arbitrary keys and values.
+Maps, like arrays, are immutable and evaluate to themselves. Maps are created with `{}`, and can assign arbitrary keys and values.
 
 ```
 (define contact {:first_name "Mister"
@@ -132,7 +132,7 @@ Hash maps, like arrays, are immutable and evaluate to themselves. Hash maps are 
                  :number 1234567890})
 
 # you can lookup values for a key
-(Hash.get contact :first_name)
+(Map.get contact :first_name)
 => "Mister"
 ```
 
@@ -344,10 +344,10 @@ TODO...
 
 Lightweight threads are used for concurrency, also known as coroutines, green threads, and fibers. The runtime handles all concurrency tasks and exposes a simple interface with fibers. Messages can be shared across fibers using queues.
 
-You can start a new concurrent task with `fiber`.
+You can start a new concurrent task with `spawn`.
 
 ```
-(fiber
+(spawn
   (while true
     (sleep 10)
     (println "brr")))
@@ -356,7 +356,7 @@ You can start a new concurrent task with `fiber`.
 Fibers can be exited out with `(done)`. Every fiber implicitly has a reference to its parent fiber, and as such can invoke the `done?` method to detect if the parent exited out.
 
 ```
-(fiber
+(spawn
   (while true
     (when (done?) (done))
     (println "brr")))
@@ -385,7 +385,7 @@ We can put an error on the queue as a signal to a fiber to terminate. Here's an 
 
 ```
 (let ((msgs (queue)))
-  (fiber 
+  (spawn
     (while true
       (let ((msg (take msgs)))
         (when (error? msg) (done))
