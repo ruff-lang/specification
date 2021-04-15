@@ -127,8 +127,8 @@ Two additional native datastructures are available, arrays and hash maps. The sy
 Hash maps, like arrays, are immutable and evaluate to themselves. Hash maps are created with `{}`, and can assign arbitrary keys and values.
 
 ```
-(define contact {:first_name "Mister" 
-                 :last_name "Rabbit" 
+(define contact {:first_name "Mister"
+                 :last_name "Rabbit"
                  :number 1234567890})
 
 # you can lookup values for a key
