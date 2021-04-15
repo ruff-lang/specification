@@ -72,7 +72,7 @@ Inside a quoted form, we can resume evaluation selectively. This is called unquo
 => (+ 1 5)
 ```
 
-Lists can be unquoted into position in the quoted template with `unquote-splice`. This is useful for when you want to flatten a list. The at-sign (`@`) is the syntax for unquote-splice. For example:
+Lists can be unquoted into position in the quoted template with `unquote_splice`. This is useful for when you want to flatten a list. The at-sign (`@`) is the syntax for unquote-splice. For example:
 
 ```
 '(1 2 ~(list 3 4))
@@ -98,6 +98,42 @@ Lists can be unquoted into position in the quoted template with `unquote-splice`
 ```
 (tail '(1 2 3))
 => (2 3)
+```
+
+### Arrays and Hash Maps
+
+Two additional native datastructures are available, arrays and hash maps. The syntax for arrays is square brackets, `[]`, `[1 2 3]`, etc. Arrays evaluate to themselves and are immutable. 
+
+```
+(define names ["albert" "bob" "charlie"])
+
+# get the length of an array
+(Array.length names)
+=> 3
+
+# search for a particular element
+(Array.find names "bob")
+=> 1
+
+# get the first item
+(head names)
+=> "albert"
+
+# get the rest of the array
+(tail names)
+=> ["bob" "charlie"]
+```
+
+Hash maps, like arrays, are immutable and evaluate to themselves. Hash maps are created with `{}`, and can assign arbitrary keys and values.
+
+```
+(define contact {:first_name "Mister" 
+                 :last_name "Rabbit" 
+				 :number 1234567890})
+
+# you can lookup values for a key
+(Hash.get contact :first_name)
+=> "Mister"
 ```
 
 ### Comments
@@ -289,7 +325,7 @@ A `for` loop loops over a sequence, allowing the user to operate on each element
 
 ```
 # prints each name in the list
-(for (name '(albert bob carl))
+(for (name ["albert" "bob" "carl"])
   (println name))
 ```
 
@@ -297,7 +333,7 @@ Finally, the more idiomatic way of writing the above using `map`, form: `(map <f
 
 ```
 # equivalent to the for loop, but simpler and more idiomatic
-(map println '(albert bob carl))
+(map println ["albert" "bob" "carl"])
 ```
 
 ### Signals and Errors
@@ -412,7 +448,7 @@ Alternatively, a file containing definitions _not_ in a module can be imported f
 # helpers.bn
 
 (defun roll_dice ()
-  (Random.pick '(1 2 3 4 5 6))
+  (Random.pick [1 2 3 4 5 6])
 ```
 
 and import in another using relative path:
