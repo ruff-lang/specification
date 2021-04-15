@@ -129,7 +129,7 @@ Hash maps, like arrays, are immutable and evaluate to themselves. Hash maps are 
 ```
 (define contact {:first_name "Mister" 
                  :last_name "Rabbit" 
-				 :number 1234567890})
+                 :number 1234567890})
 
 # you can lookup values for a key
 (Hash.get contact :first_name)
