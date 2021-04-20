@@ -10,4 +10,6 @@ The specification is currently at version `v0.0.1`. The expected 'stable' specif
 
 # License
 
+<img alt="GitHub" src="https://img.shields.io/github/license/rgrmrts/dot-emacs-d">
+
 MPL-2.0, See [LICENSE](LICENSE).
