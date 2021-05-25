@@ -172,7 +172,7 @@ Values can be defined globally with `(define <name> <body>)`. Mutation is possib
 Variables can be lexically scoped using `let` and then used within the scoped expression.
 
 ```lisp
-(let ((foo 42))
+(let (foo 42)
   (+ foo foo))
 => 84
 ```
@@ -180,7 +180,7 @@ Variables can be lexically scoped using `let` and then used within the scoped ex
 Multiple bindings can be used.
 
 ```lisp
-(let ((foo 1) (bar 2))
+(let (foo 1 bar 2)
   (+ foo bar))
 => 3
 ```
@@ -188,8 +188,8 @@ Multiple bindings can be used.
 `let` evaluates each binding immediately and in-order, allowing for dependent bindings.
 
 ```lisp
-(let ((foo 2)
-      (bar (* foo foo)))
+(let (foo 2
+      bar (* foo foo))
   (+ foo bar))
 => 6
 ```
@@ -377,17 +377,17 @@ Things can be added to a queue with `put`.
 And things can be taken off a queue with `take`, which blocks until the queue has something on it.
 
 ```lisp
-(let ((msg (take some-queue)))
+(let (msg (take some-queue))
   (println (format "got message: %s" msg))))
 ```
 
 We can put an error on the queue as a signal to a fiber to terminate. Here's an example of a fiber that prints messages received til it sees an error.
 
 ```lisp
-(let ((msgs (queue)))
+(let (msgs (queue))
   (spawn
     (while true
-      (let ((msg (take msgs)))
+      (let (msg (take msgs))
         (when (error? msg) (done))
         (println (format "received: %s" msg))))))
   (put msgs "hello")
@@ -420,7 +420,7 @@ A module can be defined to only explicitly export a list of public functions. Ot
 (module Utilities)
 
 (defun print_uppercase (arg)
-  (let ((uppercase (String.upper arg)))
+  (let (uppercase (String.upper arg))
     (println uppercase)))
 ```
 
