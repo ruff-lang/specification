@@ -42,7 +42,7 @@ Lists are arbitrarily long sequences of pairs. `()` is the empty list, or a pair
 
 All three forms below are equivalent.
 
-```
+```lisp
 (1 2 3)
 (1 . (2 . (3 . '())))
 (pair 1 (pair 2 (pair 3 '())))
@@ -50,7 +50,7 @@ All three forms below are equivalent.
 
 Lists are always evaluated unless they are quoted. Quoting stops evaluation. Lists can be quoted with `(quote <list>)` or the syntactic sugared form, `'(<list>)`.
 
-```
+```lisp
 (+ 1 2)
 => 3
 
@@ -63,94 +63,94 @@ Lists are always evaluated unless they are quoted. Quoting stops evaluation. Lis
 
 Inside a quoted form, we can resume evaluation selectively. This is called unquoting. `(unquote <list>)` or syntactic sugared form, tilde `~<list>`, are used to unquote a list.
 
-```
+```lisp
 (quote (+ 1 (unquote (+ 2 3))))
 => (+ 1 5)
 
-# equivalent, using syntactic sugar
+;; equivalent, using syntactic sugar
 '(+ ~(+ 2 3))
 => (+ 1 5)
 ```
 
-Lists can be unquoted into position in the quoted template with `unquote_splice`. This is useful for when you want to flatten a list. The at-sign (`@`) is the syntax for unquote-splice. For example:
+Lists can be unquoted into position in the quoted template with `unquote-splice`. This is useful for when you want to flatten a list. The at-sign (`@`) is the syntax for unquote-splice. For example:
 
-```
+```lisp
 '(1 2 ~(list 3 4))
 => (1 2 (3 4))
 
-(quote (1 2 (unquote_splice (list 3 4))))
+(quote (1 2 (unquote-splice (list 3 4))))
 => (1 2 3 4)
 
-# equivalent, using syntactic sugar
+;; equivalent, using syntactic sugar
 '(1 2 @(list 3 4))
 => (1 2 3 4)
 ```
 
 `head` is a function returning the first element of a pair or a list.
 
-```
+```lisp
 (head '(1 2 3))
 => 1
 ```
 
 `tail` is a function returning the rest of the list.
 
-```
+```lisp
 (tail '(1 2 3))
 => (2 3)
 ```
 
 ### Arrays and Hash Maps
 
-Two additional native datastructures are available, arrays and hash maps. The syntax for arrays is square brackets, `[]`, `[1 2 3]`, etc. Arrays evaluate to themselves and are immutable. 
+Two additional native datastructures are available, arrays and hash maps. The syntax for arrays is square brackets, `[]`, `[1 2 3]`, etc. Arrays evaluate to themselves and are immutable.
 
-```
+```lisp
 (define names ["albert" "bob" "charlie"])
 
-# get the length of an array
+;; get the length of an array
 (Array.length names)
 => 3
 
-# search for a particular element
+;; search for a particular element
 (Array.find names "bob")
 => 1
 
-# get the first item
+;; get the first item
 (head names)
 => "albert"
 
-# get the rest of the array
+;; get the rest of the array
 (tail names)
 => ["bob" "charlie"]
 ```
 
 Hash maps, like arrays, are immutable and evaluate to themselves. Hash maps are created with `{}`, and can assign arbitrary keys and values.
 
-```
-(define contact {:first_name "Mister"
-                 :last_name "Rabbit"
+```lisp
+(define contact {:first-name "Mister"
+                 :last-name "Rabbit"
                  :number 1234567890})
 
-# you can lookup values for a key
-(Hash.get contact :first_name)
+;; you can lookup values for a key
+(Hash.get contact :first-name)
 => "Mister"
 ```
 
 ### Comments
 
-Comments in Bunny are specified with a single hashtag, `#`.
+Comments in Bunny are specified with two semi-colons, `;;`.
 
-```
-# this is a comment
+```lisp
+;; this is a comment
 
-# this is a comment that
-# spans multiple lines
+;; this is a comment that
+;; spans multiple lines
 ```
 
 In-line comments should have two whitespaces preceding.
 
-```
-(+ 1 2)  # add one and two
+```lisp
+(+ 1 2)  ;; add one and two
        ^^
    whitespace
 ```
@@ -159,7 +159,7 @@ In-line comments should have two whitespaces preceding.
 
 Values can be defined globally with `(define <name> <body>)`. Mutation is possible with `(set! <name> <value>)` but discouraged in actual logic.
 
-```
+```lisp
 (define foo 42)
 (println foo)
 => 42
@@ -171,7 +171,7 @@ Values can be defined globally with `(define <name> <body>)`. Mutation is possib
 
 Variables can be lexically scoped using `let` and then used within the scoped expression.
 
-```
+```lisp
 (let ((foo 42))
   (+ foo foo))
 => 84
@@ -179,7 +179,7 @@ Variables can be lexically scoped using `let` and then used within the scoped ex
 
 Multiple bindings can be used.
 
-```
+```lisp
 (let ((foo 1) (bar 2))
   (+ foo bar))
 => 3
@@ -187,7 +187,7 @@ Multiple bindings can be used.
 
 `let` evaluates each binding immediately and in-order, allowing for dependent bindings.
 
-```
+```lisp
 (let ((foo 2)
       (bar (* foo foo)))
   (+ foo bar))
@@ -200,13 +200,13 @@ Bunny has two forms of functions, anonymous functions (`lambda` or `λ`) and nam
 
 Anonymous functions take the form `(λ (<arguments>) (<expression>))`. Below is an example that squares a number.
 
-```
+```lisp
 (λ (x) (* x x))
 ```
 
 Since functions are values, and we use `define` to give names to values, we can use `define` and `lambda` to express a named function.
 
-```
+```lisp
 (define <function_name>
   (λ (<arguments>)
     (<expression>)))
@@ -214,7 +214,7 @@ Since functions are values, and we use `define` to give names to values, we can 
 
 For example, we can define the function `incr` that increments a given integer.
 
-```
+```lisp
 (define incr
   (λ (x)
     (+ x 1)))
@@ -222,14 +222,14 @@ For example, we can define the function `incr` that increments a given integer.
 
 And then invoke it:
 
-```
+```lisp
 (incr 1)
 => 2
 ```
 
 A special short-hand form `defun` is a convenient way to define named functions with arguments. `(defun <function_name> (<arguments>) (<expression>))`. The same `incr` function defined using the `defun` short-hand form below.
 
-```
+```lisp
 (defun incr (x)
   (+ x 1))
 ```
@@ -240,40 +240,40 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `if` blocks take the form `(if (<condition>) (<true_expression>) (<false_expression>))`.
 
-```
+```lisp
 (if (< 1 0)
   (println "condition met")
   (println "condition failed"))
 => "condition failed"
 ```
 
-`when` is a macro that expands to `(if (<condition>) (<true_expression>) none)`. It is preferred when there's no `else` clause needed.
+`when` is a macro that expands to `(if (<condition>) (<true_expression>) nil)`. It is preferred when there's no `else` clause needed.
 
-```
+```lisp
 (when (< 1 2) (println "condition met"))
 => "condition met"
 
-(when (< 3 2) (println "condition met"))  # nothing will be displayed in the REPL
+(when (< 3 2) (println "condition met"))  ;; nothing will be displayed in the REPL
 ```
 
 `cond` blocks are a slightly more generic way to construct multiple conditions, they take the form `(cond (<conditional_0>) (<expression_0>) ... (<conditional_n>) (<expression_n>))`.
 
-```
-# Assume x is bound or supplied by a function argument, this
-# condition will return a string based on the value of x.
+```lisp
+;; Assume x is bound or supplied by a function argument, this
+;; condition will return a string based on the value of x.
 (cond ((< x 10) "less than 10")
       ((< x 100) "less than 100")
       (else "no conditions met"))
 
-# If no result expression is given, the condition block will
-# return the result of the conditional expression.
+;; If no result expression is given, the condition block will
+;; return the result of the conditional expression.
 (cond ((< 1 10)))
 => true
 ```
 
 `and` is simply the logical and. `or` is the logical or.
 
-```
+```lisp
 (and (< 1 2) (< 2 3))
 => true
 
@@ -289,24 +289,24 @@ Basic conditional logic forms in Bunny are pretty similar to Scheme. Below are t
 
 `not` negates the boolean expression immediately following it.
 
-```
+```lisp
 (not (< 1 2))
 => false
 ```
 
 `unless` is a macro preferred over `(if (not ..) .. ..)` and evaluates to an equivalent `if` block with the conditional expression negated.
 
-```
+```lisp
 (unless (even? 2)
   (println "not even")
   (println "even"))
 => "even"
 
-# unless can be used without a second clause making it an implicit none
+;; unless can be used without a second clause making it an implicit nil
 (unless (odd? 2) (println "not odd"))
 => "not odd"
 
-(unless (odd? 3) (println "not odd"))  # nothing will be displayed in the REPL
+(unless (odd? 3) (println "not odd"))  ;; nothing will be displayed in the REPL
 ```
 
 ### Loops
@@ -315,24 +315,24 @@ There are a few ways to loop over a conditional or over a sequence (as in, a lis
 
 The `while` loop takes and evaluates a conditional beforing entering the body. The form is `(while <condition> <body>)`.
 
-```
-# infinite loop
+```lisp
+;; infinite loop
 (while true
   (println "brrr"))
 ```
 
 A `for` loop loops over a sequence, allowing the user to operate on each element of that sequence. Note that this is not a very _functional_ approach, but allows for some flexibility when needed. The form is `(for (<variable> <sequence>) <body>)`.
 
-```
-# prints each name in the list
+```lisp
+;; prints each name in the list
 (for (name ["albert" "bob" "carl"])
   (println name))
 ```
 
 Finally, the more idiomatic way of writing the above using `map`, form: `(map <function> <sequence>)`.
 
-```
-# equivalent to the for loop, but simpler and more idiomatic
+```lisp
+;; equivalent to the for loop, but simpler and more idiomatic
 (map println ["albert" "bob" "carl"])
 ```
 
@@ -346,7 +346,7 @@ Lightweight threads are used for concurrency, also known as coroutines, green th
 
 You can start a new concurrent task with `spawn`.
 
-```
+```lisp
 (spawn
   (while true
     (sleep 10)
@@ -355,7 +355,7 @@ You can start a new concurrent task with `spawn`.
 
 Fibers can be exited out with `(done)`. Every fiber implicitly has a reference to its parent fiber, and as such can invoke the `done?` method to detect if the parent exited out.
 
-```
+```lisp
 (spawn
   (while true
     (when (done?) (done))
@@ -364,26 +364,26 @@ Fibers can be exited out with `(done)`. Every fiber implicitly has a reference t
 
 Queues can be created with `queue`.
 
-```
-(define some_queue (queue))
+```lisp
+(define some-queue (queue))
 ```
 
 Things can be added to a queue with `put`.
 
-```
-(put some_queue "foo")
+```lisp
+(put some-queue "foo")
 ```
 
 And things can be taken off a queue with `take`, which blocks until the queue has something on it.
 
-```
-(let ((msg (take some_queue)))
+```lisp
+(let ((msg (take some-queue)))
   (println (format "got message: %s" msg))))
 ```
 
 We can put an error on the queue as a signal to a fiber to terminate. Here's an example of a fiber that prints messages received til it sees an error.
 
-```
+```lisp
 (let ((msgs (queue)))
   (spawn
     (while true
@@ -406,16 +406,16 @@ Modules provide a way of organizing and grouping code together. They also provid
 
 A module can be defined to only explicitly export a list of public functions. Otherwise, all definitions inside the module will be implicitly exported. We can define a new module using `defmodule`, and tell the language where we're implementing that module with `module`. Note that both the module definition and the implement directive can be in the same file.
 
-```
-# mod.bn
+```lisp
+;; mod.bn
 
 (defmodule Utilities
-  (export (print_uppercase
-           print_lowercase)))
+  (export (print-uppercase
+           print-lowercase)))
 ```
 
-```
-# utilities.bn
+```lisp
+;; utilities.bn
 
 (module Utilities)
 
@@ -426,17 +426,17 @@ A module can be defined to only explicitly export a list of public functions. Ot
 
 In another file this module can be used.
 
-```
-(Utilities.print_uppercase "hello")
+```lisp
+(Utilities.print-uppercase "hello")
 => "HELLO"
 ```
 
 To avoid having to use the dot notation, the module can be imported with `use`.
 
-```
+```lisp
 (use Utilities)
 
-(print_uppercase "hello")
+(print-uppercase "hello")
 => "HELLO"
 ```
 
@@ -444,21 +444,21 @@ If a symbol is already defined leading to a name conflict, `(use <module>)` will
 
 Alternatively, a file containing definitions _not_ in a module can be imported for use. Define in one file:
 
-```
-# helpers.bn
+```lisp
+;; helpers.bn
 
-(defun roll_dice ()
+(defun roll-dice ()
   (Random.pick [1 2 3 4 5 6])
 ```
 
 and import in another using relative path:
 
-```
-# application.bn
+```lisp
+;; application.bn
 
 (import "helpers.bn")
 
-(roll_dice)
+(roll-dice)
 => 6
 ```
 
